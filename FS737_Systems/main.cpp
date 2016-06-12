@@ -10,6 +10,13 @@
 #include "DOORS.h"
 #include "ENGINEECC.h"
 #include "FRECSTALLTEST.h"
+#include "FUEL.h"
+#include "HEAT.h"
+#include "LED.h"
+#include "OXY.h"
+#include "PNEUMATICS.h"
+#include "TPANEL.h"
+#include "IRS.h"
 
 using namespace fssystems;
 
@@ -26,6 +33,13 @@ int main(char * args, int argv) {
 	DOORS doors;
 	ENGINEECC engineecc;
 	FRECSTALLTEST frecstalltest;
+	FUEL fuel;
+	HEAT heat;
+	LED led;
+	OXY oxy;
+	PNEUMATICS pneumatics;
+	TPANEL tpanel;
+	IRS irs;
 
 	//enable LightController
 	LightController::enableUpdate();

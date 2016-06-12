@@ -151,7 +151,12 @@ namespace fstoolbox
 		lightsList[id].writeStatus(lights_power, lights_test, lights_brightness);
 	}
 
-
+	///<summary>
+	/// This registeres a light in the LightController.
+	/// If you wish to control a light with the lightcontroller, the light has to be registered first
+	/// If the light is dimmable, set the dimmable FSIID as the second parameter.
+	/// The class will set the dimmed light automatically
+	///</summary>
 	void LightController::registerLight(FSIID light, FSIID dimmed_light) {
 		//id in lights list
 		if (lightsList.find(light) != lightsList.end())

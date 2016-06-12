@@ -39,6 +39,27 @@
     <ClCompile Include="FRECSTALLTEST.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="FUEL.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="HEAT.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="LED.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="OXY.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="PNEUMATICS.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="TPANEL.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="IRS.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ELT.h">
@@ -62,5 +83,39 @@
     <ClInclude Include="FRECSTALLTEST.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="FUEL.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="HEAT.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="LED.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="OXY.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="PNEUMATICS.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="TPANEL.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="IRS.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FS737_Systems.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
