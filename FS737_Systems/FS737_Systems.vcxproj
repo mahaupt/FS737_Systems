@@ -155,11 +155,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIRCOND.cpp" />
+    <ClCompile Include="ANTIICE.cpp" />
     <ClCompile Include="ELT.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Panel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIRCOND.h" />
+    <ClInclude Include="ANTIICE.h" />
     <ClInclude Include="ELT.h" />
     <ClInclude Include="Panel.h" />
   </ItemGroup>

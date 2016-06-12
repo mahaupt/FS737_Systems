@@ -24,12 +24,24 @@
     <ClCompile Include="Panel.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="AIRCOND.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTIICE.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ELT.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Panel.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="AIRCOND.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ANTIICE.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

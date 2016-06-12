@@ -5,6 +5,8 @@
 #include "FSToolbox/LightController.h"
 
 #include "ELT.h"
+#include "AIRCOND.h"
+#include "ANTIICE.h"
 
 using namespace fssystems;
 
@@ -16,6 +18,8 @@ int main(char * args, int argv) {
 
 	//start panel classes
 	ELT elt;
+	AIRCOND aircond;
+	ANTIICE antiice;
 
 
 	//enable LightController
