@@ -21,7 +21,7 @@ int main(char * args, int argv) {
 		fsinterface::FSIID::MBI_ELEC_BUS_GRD_PWR_SWITCH,
 		fsinterface::FSIID::MBI_ELEC_BUS_APU_GEN_1_SWITCH_ON_POS
 	};
-	fsi->DeclareAsWanted(wanted_fsi_vars, sizeof(wanted_fsi_vars) / sizeof(fsinterface::FSIID));
+	fsi->DeclareAsWanted(wanted_fsi_vars, sizeof(wanted_fsi_vars));
 
 	//send the changes to the Server
 	fsi->ProcessWrites();

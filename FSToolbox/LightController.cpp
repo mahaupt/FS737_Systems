@@ -3,26 +3,99 @@
 
 namespace fstoolbox
 {
+
+	LightControllerLight::LightControllerLight(FSIID _light, FSIID _dimmable_light)
+	{
+		light = _light;
+		dimmed_light = _dimmable_light;
+		is_dimmable = true;
+	}
+
+	LightControllerLight::LightControllerLight(FSIID _light)
+	{
+		light = _light;
+		is_dimmable = false;
+	}
+
+
+	//set the light status
+	void LightControllerLight::set(bool value)
+	{
+		light_on = value;
+	}
+
+	//get if the light is on or off
+	bool LightControllerLight::get(bool main_light_power, bool lights_test)
+	{
+		if (main_light_power)
+		{
+			switch (light_status)
+			{
+			case (0):
+			default:
+				return false;
+			case (1):
+				if (lights_test)
+					return true;
+				return light_on;
+			case (2):
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+
+
+	void LightControllerLight::writeStatus(bool main_lights_power, bool lights_test, bool light_brightness)
+	{
+		bool true_light_status = get(main_lights_power, lights_test);
+
+		//write light status
+		if (!is_dimmable)
+		{
+			FSIcm::inst->set<bool>(light, true_light_status);
+		}
+		else
+		{
+			//bright
+			FSIcm::inst->set<bool>(light, true_light_status);
+
+			//dimmed
+			FSIcm::inst->set<bool>(dimmed_light, !light_brightness);
+		}
+
+
+	}
+
+
+
+
+
+
 	bool LightController::lights_brightness = true; //1: bright, 0: dimmed
 	bool LightController::lights_power = true; //1: power on, 0: power off
 	bool LightController::lights_test = false; //0: normal, : all lights on
 	bool LightController::is_debug = true;
 	bool LightController::updateLocked = true;
-	std::map<FSIID, LightControllerLight> LightController::lightsList;
+	LightsList LightController::lightsList;
 
 
 	LightController::LightController()
 	{
 
-		FSIcm.inst.OnVarReceiveEvent += fsiOnVarReceive;
-		FSIcm.inst.DeclareAsWanted(new FSIID[]
+		FSIcm::inst->RegisterCallback(fsiOnVarReceive);
+		FSIID wanted_vars[] =
 		{
 			FSIID::MBI_MIP_CM1_LIGHTS_TEST_SWITCH_DIM_POS,
 			FSIID::MBI_MIP_CM1_LIGHTS_TEST_SWITCH_TEST_POS
-		}
-		);
+		};
+		FSIcm::inst->DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
 
-		FSIcm.inst.ProcessWrites();
+		FSIcm::inst->ProcessWrites();
 	}
 
 
@@ -38,13 +111,13 @@ namespace fstoolbox
 
 		if (id == FSIID::MBI_MIP_CM1_LIGHTS_TEST_SWITCH_DIM_POS || id == FSIID::MBI_MIP_CM1_LIGHTS_TEST_SWITCH_TEST_POS)
 		{
-			if (FSIcm.inst.MBI_MIP_CM1_LIGHTS_TEST_SWITCH_DIM_POS)
+			if (FSIcm::inst->get<bool>(FSIID::MBI_MIP_CM1_LIGHTS_TEST_SWITCH_DIM_POS))
 			{
 				debug("MIP Lights Dim");
 				setLightBrightness(false);
 				setLightTest(false);
 			}
-			else if (FSIcm.inst.MBI_MIP_CM1_LIGHTS_TEST_SWITCH_TEST_POS)
+			else if (FSIcm::inst->get<bool>(FSIID::MBI_MIP_CM1_LIGHTS_TEST_SWITCH_TEST_POS))
 			{
 				debug("MIP Lights Test");
 				setLightBrightness(true);
@@ -66,38 +139,40 @@ namespace fstoolbox
 
 	void LightController::set(FSIID id, bool value)
 	{
-		if (!lightsList.ContainsKey(id))
+		//no id in lights list
+		if (lightsList.find(id) == lightsList.end())
 		{
-			String name = id.ToString("g") + "*";
-
-			Type type = FSIcm.inst.GetType();
-			MemberInfo[] memberInfos = type.GetMember(name);
-
-			if (memberInfos.Length == 1)
-			{
-				lightsList.Add(id, new LightControllerLight(memberInfos[0]));
-			}
-			else if (memberInfos.Length == 2)
-			{
-				lightsList.Add(id, new LightControllerLight(memberInfos[0], memberInfos[1]));
-			}
-			else
-			{
-				Console.WriteLine("ERROR: LightController: Too many Lights found for name: " + name);
-				return;
-			}
+			std::cerr << "Light id:" << id << " not registered! Aborted" << std::endl;
+			return;
 		}
 
 		//set the light value
 		lightsList[id].set(value);
-		lightsList[id].writeStatus(lights_power, lights_test, lights_brightness, ref FSIcm.inst);
+		lightsList[id].writeStatus(lights_power, lights_test, lights_brightness);
+	}
+
+
+	void LightController::registerLight(FSIID light, FSIID dimmed_light = (FSIID)0) {
+		//id in lights list
+		if (lightsList.find(light) != lightsList.end())
+		{
+			std::cerr << "Light id:" << light << " already registered! Aborted" << std::endl;
+			return;
+		}
+
+		//add light to lights list
+		if (dimmed_light == (FSIID)0) {
+			lightsList.emplace(light, LightControllerLight(light));
+		} else {
+			lightsList.emplace(light, LightControllerLight(light, dimmed_light));
+		}
 	}
 
 
 
 	void LightController::ProcessWrites()
 	{
-		FSIcm.inst.ProcessWrites();
+		FSIcm::inst->ProcessWrites();
 	}
 
 
@@ -107,10 +182,10 @@ namespace fstoolbox
 		if (!updateLocked)
 			//enure that this is not called until all lights have been added to the lightsList
 		{
-			for (int i = 0; i < lightsList.Count; i++)
+			for (LightsList::iterator it = lightsList.begin(); it != lightsList.end(); it++)
 			{
 				//Variable nicht Thread-Safe! Bei Errors erstmal auf weiter drücken
-				lightsList.ElementAt(i).Value.writeStatus(lights_power, lights_test, lights_brightness, ref FSIcm.inst);
+				it->second.writeStatus(lights_power, lights_test, lights_brightness);
 			}
 		}
 	}
