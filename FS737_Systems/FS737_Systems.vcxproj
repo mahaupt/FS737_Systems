@@ -157,14 +157,20 @@
   <ItemGroup>
     <ClCompile Include="AIRCOND.cpp" />
     <ClCompile Include="ANTIICE.cpp" />
+    <ClCompile Include="DOORS.cpp" />
     <ClCompile Include="ELT.cpp" />
+    <ClCompile Include="ENGINEECC.cpp" />
+    <ClCompile Include="FRECSTALLTEST.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Panel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIRCOND.h" />
     <ClInclude Include="ANTIICE.h" />
+    <ClInclude Include="DOORS.h" />
     <ClInclude Include="ELT.h" />
+    <ClInclude Include="ENGINEECC.h" />
+    <ClInclude Include="FRECSTALLTEST.h" />
     <ClInclude Include="Panel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

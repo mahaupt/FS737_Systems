@@ -7,6 +7,9 @@
 #include "ELT.h"
 #include "AIRCOND.h"
 #include "ANTIICE.h"
+#include "DOORS.h"
+#include "ENGINEECC.h"
+#include "FRECSTALLTEST.h"
 
 using namespace fssystems;
 
@@ -20,7 +23,9 @@ int main(char * args, int argv) {
 	ELT elt;
 	AIRCOND aircond;
 	ANTIICE antiice;
-
+	DOORS doors;
+	ENGINEECC engineecc;
+	FRECSTALLTEST frecstalltest;
 
 	//enable LightController
 	LightController::enableUpdate();

@@ -30,6 +30,15 @@
     <ClCompile Include="ANTIICE.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="DOORS.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ENGINEECC.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FRECSTALLTEST.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ELT.h">
@@ -42,6 +51,15 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ANTIICE.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="DOORS.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ENGINEECC.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FRECSTALLTEST.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
