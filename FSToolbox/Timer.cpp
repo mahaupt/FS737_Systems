@@ -1,6 +1,6 @@
 #include "Timer.h"
 
-namespace fsitoolbox
+namespace fstoolbox
 {
 	Timer::Timer(double _timeout, TimeoutCallback func)
 	{

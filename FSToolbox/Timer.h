@@ -1,5 +1,5 @@
 #pragma once
-namespace fsitoolbox
+namespace fstoolbox
 {
 	typedef void(*TimeoutCallback)(void);
 

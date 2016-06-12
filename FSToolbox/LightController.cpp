@@ -152,7 +152,7 @@ namespace fstoolbox
 	}
 
 
-	void LightController::registerLight(FSIID light, FSIID dimmed_light = (FSIID)0) {
+	void LightController::registerLight(FSIID light, FSIID dimmed_light) {
 		//id in lights list
 		if (lightsList.find(light) != lightsList.end())
 		{
@@ -166,6 +166,8 @@ namespace fstoolbox
 		} else {
 			lightsList.emplace(light, LightControllerLight(light, dimmed_light));
 		}
+
+		set(light, false);
 	}
 
 

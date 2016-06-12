@@ -13,7 +13,7 @@
 *
 */
 
-namespace fsitoolbox {
+namespace fstoolbox {
 	typedef void(*TimedCallback)(double);
 
 	class TimerManager

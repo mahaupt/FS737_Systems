@@ -14,8 +14,7 @@
 */
 namespace fstoolbox
 {
-
-	typedef fsinterface::FSIID FSIID;
+	using fsinterface::FSIID;
 
 
 	class LightControllerLight
@@ -58,7 +57,7 @@ namespace fstoolbox
 
 		static void fsiOnVarReceive(FSIID id);
 		static void set(FSIID id, bool value);
-		static void registerLight(FSIID light, FSIID dimmed_light);
+		static void registerLight(FSIID light, FSIID dimmed_light = (FSIID)0);
 		static void ProcessWrites();
 		static void setLightPower(bool _light_power);
 		static void setLightTest(bool _light_test);

@@ -1,6 +1,6 @@
 #include "TimerManager.h"
 
-namespace fsitoolbox
+namespace fstoolbox
 {
 	TimerManager * TimerManager::inst = nullptr;
 

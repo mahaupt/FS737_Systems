@@ -2,6 +2,8 @@
 
 
 namespace fstoolbox {
+	FSIcm * FSIcm::inst = nullptr;
+
 	FSIcm::FSIcm(std::string desc) :
 		fsinterface::FSIClient(desc)
 	{
