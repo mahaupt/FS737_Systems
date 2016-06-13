@@ -60,20 +60,20 @@ namespace fssystems
 	class IDG
 	{
 	private:
-		AC_Powersource & assigned_powersource;
+		AC_Powersource * assigned_powersource;
 
 	public:
 		//          /Ready to Load /CSD connected 
 		bool isConnected = true;
 
 		IDG(AC_Powersource & powersource) :
-			assigned_powersource(powersource)
+			assigned_powersource(&powersource)
 		{ }
 
 		void Disconnect()
 		{
 			isConnected = false;
-			assigned_powersource.Unavailable();
+			assigned_powersource->Unavailable();
 		}
 	};
 
@@ -84,28 +84,28 @@ namespace fssystems
 		bool isPowered = false;
 		bool sourceOff = true;
 
-		AC_Powersource & powersource;
-		AC_Powersource & selected_source;
+		AC_Powersource * powersource;
+		AC_Powersource * selected_source;
 
 		AC_BUS(AC_Powersource & disconnected) :
-			powersource(disconnected), selected_source(disconnected)
+			powersource(&disconnected), selected_source(&disconnected)
 		{}
 
 		void connect(AC_Powersource & new_powersource)
 		{
 			if (new_powersource.isAvailable)
 			{
-				powersource = new_powersource;
-				isPowered = powersource.SwitchOn();
+				powersource = &new_powersource;
+				isPowered = powersource->SwitchOn();
 
 				//vergleiche Speicheradresse der Klassen
-				if (&powersource != &selected_source) sourceOff = true;
+				if (powersource != selected_source) sourceOff = true;
 				else sourceOff = false;
 			}
 		}
 		void disconnect(AC_Powersource & disconnect)
 		{
-			powersource = disconnect;
+			powersource = &disconnect;
 			sourceOff = false;
 			isPowered = false;
 		}
@@ -114,8 +114,8 @@ namespace fssystems
 		{
 			if (new_source.isAvailable)
 			{
-				if (&powersource == &selected_source) selected_source.SwitchOff();
-				selected_source = new_source;
+				if (powersource == selected_source) selected_source->SwitchOff();
+				selected_source = &new_source;
 				connect(new_source);
 			}
 		}

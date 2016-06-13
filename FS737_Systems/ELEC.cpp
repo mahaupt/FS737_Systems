@@ -361,10 +361,10 @@ namespace fssystems
 	void ELEC::simElectrics()
 	{
 		//disconnect powersources if necessary
-		if (!ac_bus1.powersource.isOnline)
+		if (!ac_bus1.powersource->isOnline)
 			ac_bus1.disconnect(disconnected);
 
-		if (!ac_bus2.powersource.isOnline)
+		if (!ac_bus2.powersource->isOnline)
 			ac_bus2.disconnect(disconnected);
 
 		//auto-transfer
@@ -372,17 +372,17 @@ namespace fssystems
 		{
 			if (!ac_bus1.isPowered)
 			{
-				ac_bus1.connect(ac_bus2.powersource);
+				ac_bus1.connect(*ac_bus2.powersource);
 			}
 			if (!ac_bus2.isPowered)
 			{
-				ac_bus2.connect(ac_bus1.powersource);
+				ac_bus2.connect(*ac_bus1.powersource);
 			}
 		}
 		else
 		{
-			if (&ac_bus1.powersource != &ac_bus1.selected_source) ac_bus1.disconnect(disconnected);
-			if (&ac_bus2.powersource != &ac_bus2.selected_source) ac_bus2.disconnect(disconnected);
+			if (ac_bus1.powersource != ac_bus1.selected_source) ac_bus1.disconnect(disconnected);
+			if (ac_bus2.powersource != ac_bus2.selected_source) ac_bus2.disconnect(disconnected);
 		}
 
 		// Set LEDs for Busses
@@ -396,7 +396,7 @@ namespace fssystems
 		LightController::set(FSIID::MBI_ELEC_STBY_GEN_2_DRIVE_LIGHT, !eng2_gen.isAvailable);
 
 		//BAT DISCHARGE LIGHT
-		if (FSIcm::inst->get<bool>(FSIID::MBI_ELEC_IND_BATTERY_SWITCH) && !ac_bus1.isPowered && !ac_bus2.isPowered)
+		if (battery_online && !ac_bus1.isPowered && !ac_bus2.isPowered)
 		{
 			LightController::set(FSIID::MBI_ELEC_IND_BAT_DISCHARGE_LIGHT, true);
 		}
@@ -486,7 +486,7 @@ namespace fssystems
 		else; //fsi.SLI_DC_BUS_2_VOLTAGE = 0;
 
 			  // DC SWITCHED HOT BATTERY BUS
-		if (FSIcm::inst->get<bool>(FSIID::MBI_ELEC_IND_BATTERY_SWITCH))
+		if (battery_online)
 		{
 			// fsi.SLI_DC_SWITCHED_HOT_BATTERY_BUS_VOLTAGE = 24;
 		}
@@ -495,7 +495,7 @@ namespace fssystems
 			  // DC BATTERY BUS (it is supposed that battery capacity is infinite)
 		if (battery_online || ac_bus1.isPowered || ac_bus2.isPowered)
 		{
-			debug("BATTERY BUS - some power available");
+			//debug("BATTERY BUS - some power available");
 			if (ac_bus1.isPowered || ac_bus2.isPowered)
 			{
 				FSIcm::inst->set<float>(FSIID::SLI_BAT_BUS_VOLTAGE, 28);
@@ -510,13 +510,13 @@ namespace fssystems
 		}
 		else
 		{
-			debug("BATTERY BUS - no power available");
+			//debug("BATTERY BUS - no power available");
 			FSIcm::inst->set<float>(FSIID::SLI_BAT_BUS_VOLTAGE, 0);
 			switchDCSystems(false);
 		}
 
 		// STBY POWER  (it is supposed that battery capacity is infinite)
-		if ((sby_pwr_auto && (FSIcm::inst->get<bool>(FSIID::MBI_ELEC_IND_BATTERY_SWITCH) || ac_bus1.isPowered)) || (sby_pwr_bat && FSIcm::inst->get<bool>(FSIID::MBI_ELEC_IND_BATTERY_SWITCH)))
+		if ((sby_pwr_auto && (battery_online || ac_bus1.isPowered)) || (sby_pwr_bat && battery_online))
 		{
 			FSIcm::inst->set<float>(FSIID::SLI_AC_STBY_BUS_PHASE_1_VOLTAGE, 110); // AC STANDBY BUS
 			if (ac_bus1.isPowered)  // STBY BUS RUNNING ON AC BUS 1
@@ -572,12 +572,12 @@ namespace fssystems
 		if (power)
 		{
 			LightController::setLightPower(true);
-			debug("DC Systems Power ON");
+			//debug("DC Systems Power ON");
 		}
 		else
 		{
 			LightController::setLightPower(false);
-			debug("DC Systems Power OFF");
+			//debug("DC Systems Power OFF");
 		}
 	}
 
