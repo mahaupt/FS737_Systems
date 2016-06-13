@@ -32,23 +32,29 @@ namespace fstoolbox
 		std::chrono::duration<double> duration;
 
 		while (instance->running) {
+			
+
 			//timer
 			t2 = std::chrono::high_resolution_clock::now();
 			duration = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
-			t1 = t2;
+			double sleeptime = instance->timer_interval_s - duration.count();
+			if (sleeptime < 0) sleeptime = 0;
+			_sleep(sleeptime * 1000);
+			t1 = std::chrono::high_resolution_clock::now();
 
 			//call timer classes
 			if (instance != nullptr)
 			{
-				for (std::list<Timer>::iterator it = instance->timerRequestList.begin(); it != instance->timerRequestList.end(); it++)
+				for (std::list<Timer*>::iterator it = instance->timerRequestList.begin(); it != instance->timerRequestList.end(); it++)
 				{
-					(*it).PassTime(duration.count());
+					(*it)->PassTime(duration.count() + sleeptime);
 				}
 
+				//std::cout << (duration.count() + sleeptime) << std::endl;
 
 				for (std::list<TimedCallback>::iterator it = instance->timedCallbackList.begin(); it != instance->timedCallbackList.end(); it++)
 				{
-					(*it)(duration.count());
+					(*it)(duration.count() + sleeptime);
 				}
 			}
 		}
@@ -59,7 +65,7 @@ namespace fstoolbox
 	{
 		if (inst != nullptr)
 		{
-			inst->timerRequestList.push_back(timer);
+			inst->timerRequestList.push_back(&timer);
 		}
 	}
 

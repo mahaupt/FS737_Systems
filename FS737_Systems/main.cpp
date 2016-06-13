@@ -17,6 +17,8 @@
 #include "PNEUMATICS.h"
 #include "TPANEL.h"
 #include "IRS.h"
+#include "HYDRAULICS.h"
+#include "ELEC.h"
 
 using namespace fssystems;
 
@@ -40,6 +42,8 @@ int main(char * args, int argv) {
 	PNEUMATICS pneumatics;
 	TPANEL tpanel;
 	IRS irs;
+	HYDRAULICS hydraulics;
+	ELEC elec;
 
 	//enable LightController
 	LightController::enableUpdate();

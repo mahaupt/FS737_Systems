@@ -1,4 +1,6 @@
 #pragma once
+//#include <iostream>
+
 #include "Panel.h"
 #include "FSToolbox/FSIcm.h"
 #include "FSToolbox/LightController.h"
@@ -30,19 +32,6 @@ namespace fssystems
 	*/
 
 
-	class IRS :
-		public Panel
-	{
-	private:
-		Irs_mod irs_l;
-		Irs_mod irs_r;
-
-	public:
-		IRS();
-	};
-
-
-
 	//IRS Module
 	class Irs_mod
 	{
@@ -51,9 +40,9 @@ namespace fssystems
 		Timer * alignTimer;
 		Timer * dcOffTimer;
 
-		static TimeoutCallback alignOnCallback();
-		static TimeoutCallback alignedCallback();
-		static TimeoutCallback dcOffCallback();
+		static void alignOnCallback(void * inst);
+		static void alignedCallback(void * inst);
+		static void dcOffCallback(void * inst);
 
 	public:
 		bool isOnline = false;
@@ -66,6 +55,24 @@ namespace fssystems
 		void setPowerStatus(bool value);
 		void setACAvailable(bool value);
 		bool isAligning();
-	}
+	};
+
+
+	class IRS :
+		public Panel
+	{
+	private:
+		Irs_mod irs_l;
+		Irs_mod irs_r;
+		static IRS * instance;
+
+	public:
+		IRS();
+
+		static void fsiOnVarReceive(FSIID id);
+		void onVarReceive(FSIID & id);
+		static void st_sim_irs();
+		void sim_irs();
+	};
 
 }

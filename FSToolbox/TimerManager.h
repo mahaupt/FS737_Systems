@@ -2,6 +2,7 @@
 #include <list>
 #include <thread>
 #include <chrono>
+//#include <iostream>
 
 #include "Timer.h"
 
@@ -25,7 +26,7 @@ namespace fstoolbox {
 		double last_time;
 		bool running;
 
-		std::list<Timer> timerRequestList;
+		std::list<Timer*> timerRequestList;
 		std::list<TimedCallback> timedCallbackList;
 		std::thread timerThread;
 	public:

@@ -5,9 +5,9 @@ namespace fssystems
 
 	Irs_mod::Irs_mod()
 	{
-		alignmentStartTimer = new Timer(3.2, alignOnCallback);
-		alignTimer = new Timer(60.0 * 3.0, alignedCallback);
-		dcOffTimer = new Timer(3.0, dcOffCallback);
+		alignmentStartTimer = new Timer(3.2, alignOnCallback, (void*)this);
+		alignTimer = new Timer(60.0 * 3.0, alignedCallback,(void*) this);
+		dcOffTimer = new Timer(3.0, dcOffCallback, (void*)this);
 
 		TimerManager::addTimer(*alignmentStartTimer);
 		TimerManager::addTimer(*alignTimer);
@@ -79,99 +79,109 @@ namespace fssystems
 	}
 
 
-	TimeoutCallback Irs_mod::alignOnCallback()
+	void Irs_mod::alignOnCallback(void * inst)
 	{
-		alignTimer->Start();
-		IRS::sim_irs();
+		//std::cout << 1 << std::endl;
+		((Irs_mod*)inst)->alignTimer->Start();
+		IRS::st_sim_irs();
 	}
 
-	TimeoutCallback Irs_mod::alignedCallback()
+	void Irs_mod::alignedCallback(void * inst)
 	{
-		isAligned = true;
-		IRS::sim_irs();
+		//std::cout << 2 << std::endl;
+		((Irs_mod*)inst)->isAligned = true;
+		IRS::st_sim_irs();
 	}
 
-	TimeoutCallback Irs_mod::dcOffCallback()
+	void Irs_mod::dcOffCallback(void * inst)
 	{
-		onDC = false;
-		IRS::sim_irs();
+		//std::cout << 3 << std::endl;
+		((Irs_mod*)inst)->onDC = false;
+		IRS::st_sim_irs();
 	}
 
-	IRS::IRS() :
-		irs_l(), irs_r()
+
+	IRS * IRS::instance = nullptr;
+
+	IRS::IRS()
 	{
 		//debug variable
 		is_debug = true;
 
+		instance = this;
+
 		//starting FSI Client for IRS
-		FSIcm.inst.OnVarReceiveEvent += fsiOnVarReceive;
+		FSIcm::inst->RegisterCallback(fsiOnVarReceive);
 		FSIID wanted_vars[] =
 		{
-			FSIID.SLI_BAT_BUS_VOLTAGE,
-			FSIID.SLI_AC_XFR_BUS_2_PHASE_1_VOLTAGE,
-			FSIID.SLI_AC_STBY_BUS_PHASE_1_VOLTAGE,
+			FSIID::SLI_BAT_BUS_VOLTAGE,
+			FSIID::SLI_AC_XFR_BUS_2_PHASE_1_VOLTAGE,
+			FSIID::SLI_AC_STBY_BUS_PHASE_1_VOLTAGE,
 
-			FSIID.MBI_IRS_CONTROL_L_MODE_SWITCH_OFF_POS,
-			FSIID.MBI_IRS_CONTROL_L_MODE_SWITCH_NAV_POS,
-			FSIID.MBI_IRS_CONTROL_L_MODE_SWITCH_ATT_POS,
-			FSIID.MBI_IRS_CONTROL_L_MODE_SWITCH_ALIGN_POS,
-			FSIID.MBI_IRS_CONTROL_R_MODE_SWITCH_OFF_POS,
-			FSIID.MBI_IRS_CONTROL_R_MODE_SWITCH_NAV_POS,
-			FSIID.MBI_IRS_CONTROL_R_MODE_SWITCH_ATT_POS,
-			FSIID.MBI_IRS_CONTROL_R_MODE_SWITCH_ALIGN_POS
+			FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_OFF_POS,
+			FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_NAV_POS,
+			FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_ATT_POS,
+			FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_ALIGN_POS,
+			FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_OFF_POS,
+			FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_NAV_POS,
+			FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_ATT_POS,
+			FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_ALIGN_POS
 		};
-		FSIcm.inst.DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
+		FSIcm::inst->DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
 
 		//set Lights on the beginning
-		LightController.set(FSIID.MBI_IRS_CONTROL_L_DC_FAIL_LIGHT, false);
-		LightController.set(FSIID.MBI_IRS_CONTROL_L_ON_DC_LIGHT, false);
-		LightController.set(FSIID.MBI_IRS_CONTROL_L_FAULT_LIGHT, false);
-		LightController.set(FSIID.MBI_IRS_CONTROL_L_ALIGN_LIGHT, false);
-		LightController.set(FSIID.MBI_IRS_CONTROL_R_DC_FAIL_LIGHT, false);
-		LightController.set(FSIID.MBI_IRS_CONTROL_R_ON_DC_LIGHT, false);
-		LightController.set(FSIID.MBI_IRS_CONTROL_R_FAULT_LIGHT, false);
-		LightController.set(FSIID.MBI_IRS_CONTROL_R_ALIGN_LIGHT, false);
+		LightController::registerLight(FSIID::MBI_IRS_CONTROL_L_DC_FAIL_LIGHT);
+		LightController::registerLight(FSIID::MBI_IRS_CONTROL_L_ON_DC_LIGHT);
+		LightController::registerLight(FSIID::MBI_IRS_CONTROL_L_FAULT_LIGHT);
+		LightController::registerLight(FSIID::MBI_IRS_CONTROL_L_ALIGN_LIGHT);
+		LightController::registerLight(FSIID::MBI_IRS_CONTROL_R_DC_FAIL_LIGHT);
+		LightController::registerLight(FSIID::MBI_IRS_CONTROL_R_ON_DC_LIGHT);
+		LightController::registerLight(FSIID::MBI_IRS_CONTROL_R_FAULT_LIGHT);
+		LightController::registerLight(FSIID::MBI_IRS_CONTROL_R_ALIGN_LIGHT);
 
-		FSIcm.inst.MBI_IRS_CONTROL_LAMPTEST = false;
+		FSIcm::inst->set<bool>(FSIID::MBI_IRS_CONTROL_LAMPTEST, false);
 
 		//send Settings to Server
-		FSIcm.inst.ProcessWrites();
+		FSIcm::inst->ProcessWrites();
 	}
 
+	void IRS::fsiOnVarReceive(FSIID id) {
+		instance->onVarReceive(id);
+	}
 
-	void fsiOnVarReceive(FSIID id)
+	void IRS::onVarReceive(FSIID & id)
 	{
 
 		//LEFT IRS KNOB or Power
-		if (id == FSIID.MBI_IRS_CONTROL_L_MODE_SWITCH_OFF_POS ||
-			id == FSIID.MBI_IRS_CONTROL_L_MODE_SWITCH_ALIGN_POS ||
-			id == FSIID.MBI_IRS_CONTROL_L_MODE_SWITCH_NAV_POS ||
-			id == FSIID.MBI_IRS_CONTROL_L_MODE_SWITCH_ATT_POS ||
-			id == FSIID.SLI_BAT_BUS_VOLTAGE)
+		if (id == FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_OFF_POS ||
+			id == FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_ALIGN_POS ||
+			id == FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_NAV_POS ||
+			id == FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_ATT_POS ||
+			id == FSIID::SLI_BAT_BUS_VOLTAGE)
 		{
 			//switch to off if
-			if (FSIcm.inst.MBI_IRS_CONTROL_L_MODE_SWITCH_OFF_POS || FSIcm.inst.SLI_BAT_BUS_VOLTAGE <= 12)
+			if (FSIcm::inst->get<bool>(FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_OFF_POS) || FSIcm::inst->get<float>(FSIID::SLI_BAT_BUS_VOLTAGE) <= 12)
 			{
 				debug("IRS L OFF");
 
 				irs_l.setPowerStatus(false);
 				sim_irs();
 			}
-			else if (FSIcm.inst.MBI_IRS_CONTROL_L_MODE_SWITCH_ALIGN_POS)
+			else if (FSIcm::inst->get<bool>(FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_ALIGN_POS))
 			{
 				debug("IRS L ALIGN");
 
 				irs_l.setPowerStatus(true);
 				sim_irs();
 			}
-			else if (FSIcm.inst.MBI_IRS_CONTROL_L_MODE_SWITCH_NAV_POS)
+			else if (FSIcm::inst->get<bool>(FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_NAV_POS))
 			{
 				debug("IRS L NAV");
 
 				irs_l.setPowerStatus(true);
 				sim_irs();
 			}
-			else if (FSIcm.inst.MBI_IRS_CONTROL_L_MODE_SWITCH_ATT_POS)
+			else if (FSIcm::inst->get<bool>(FSIID::MBI_IRS_CONTROL_L_MODE_SWITCH_ATT_POS))
 			{
 				debug("IRS L ATT");
 
@@ -182,35 +192,35 @@ namespace fssystems
 
 
 		//RIGHT IRS KNOB
-		if (id == FSIID.MBI_IRS_CONTROL_R_MODE_SWITCH_OFF_POS ||
-			id == FSIID.MBI_IRS_CONTROL_R_MODE_SWITCH_ALIGN_POS ||
-			id == FSIID.MBI_IRS_CONTROL_R_MODE_SWITCH_NAV_POS ||
-			id == FSIID.MBI_IRS_CONTROL_R_MODE_SWITCH_ATT_POS ||
-			id == FSIID.SLI_BAT_BUS_VOLTAGE)
+		if (id == FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_OFF_POS ||
+			id == FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_ALIGN_POS ||
+			id == FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_NAV_POS ||
+			id == FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_ATT_POS ||
+			id == FSIID::SLI_BAT_BUS_VOLTAGE)
 		{
 
-			if (FSIcm.inst.MBI_IRS_CONTROL_R_MODE_SWITCH_OFF_POS || FSIcm.inst.SLI_BAT_BUS_VOLTAGE <= 12)
+			if (FSIcm::inst->get<bool>(FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_OFF_POS) || FSIcm::inst->get<float>(FSIID::SLI_BAT_BUS_VOLTAGE) <= 12)
 			{
 				debug("IRS R OFF");
 
 				irs_r.setPowerStatus(false);
 				sim_irs();
 			}
-			else if (FSIcm.inst.MBI_IRS_CONTROL_R_MODE_SWITCH_ALIGN_POS)
+			else if (FSIcm::inst->get<bool>(FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_ALIGN_POS))
 			{
 				debug("IRS R ALIGN");
 
 				irs_r.setPowerStatus(true);
 				sim_irs();
 			}
-			else if (FSIcm.inst.MBI_IRS_CONTROL_R_MODE_SWITCH_NAV_POS)
+			else if (FSIcm::inst->get<bool>(FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_NAV_POS))
 			{
 				debug("IRS R NAV");
 
 				irs_r.setPowerStatus(true);
 				sim_irs();
 			}
-			else if (FSIcm.inst.MBI_IRS_CONTROL_R_MODE_SWITCH_ATT_POS)
+			else if (FSIcm::inst->get<bool>(FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_ATT_POS))
 			{
 				debug("IRS R ATT");
 
@@ -221,10 +231,10 @@ namespace fssystems
 
 
 		//AC Powersources
-		if (id == FSIID.SLI_AC_XFR_BUS_2_PHASE_1_VOLTAGE)
+		if (id == FSIID::SLI_AC_XFR_BUS_2_PHASE_1_VOLTAGE)
 		{
 			//no voltage on XFR BUS 2
-			if (FSIcm.inst.SLI_AC_XFR_BUS_2_PHASE_1_VOLTAGE <= 50)
+			if (FSIcm::inst->get<float>(FSIID::SLI_AC_XFR_BUS_2_PHASE_1_VOLTAGE) <= 50)
 			{
 				irs_r.setACAvailable(false);
 			}
@@ -236,9 +246,9 @@ namespace fssystems
 		}
 
 		//läuft eigentlich über stby bus
-		if (id == FSIID.SLI_AC_STBY_BUS_PHASE_1_VOLTAGE)
+		if (id == FSIID::SLI_AC_STBY_BUS_PHASE_1_VOLTAGE)
 		{
-			if (FSIcm.inst.SLI_AC_STBY_BUS_PHASE_1_VOLTAGE <= 50)
+			if (FSIcm::inst->get<float>(FSIID::SLI_AC_STBY_BUS_PHASE_1_VOLTAGE) <= 50)
 			{
 				irs_l.setACAvailable(false);
 			}
@@ -251,49 +261,54 @@ namespace fssystems
 	}
 
 
-	public static void sim_irs()
+	void IRS::st_sim_irs() {
+		instance->sim_irs();
+	}
+
+
+	void IRS::sim_irs()
 	{
 		//IRS L ALIGN LIGHT
 		if (irs_l.isOnline && irs_l.isAligning())
 		{
-			LightController.set(FSIID.MBI_IRS_CONTROL_L_ALIGN_LIGHT, true);
+			LightController::set(FSIID::MBI_IRS_CONTROL_L_ALIGN_LIGHT, true);
 		}
 		else
 		{
-			LightController.set(FSIID.MBI_IRS_CONTROL_L_ALIGN_LIGHT, false);
+			LightController::set(FSIID::MBI_IRS_CONTROL_L_ALIGN_LIGHT, false);
 		}
 
 		//IRS R ALIGN LIGHT
 		if (irs_r.isOnline && irs_r.isAligning())
 		{
-			LightController.set(FSIID.MBI_IRS_CONTROL_R_ALIGN_LIGHT, true);
+			LightController::set(FSIID::MBI_IRS_CONTROL_R_ALIGN_LIGHT, true);
 		}
 		else
 		{
-			LightController.set(FSIID.MBI_IRS_CONTROL_R_ALIGN_LIGHT, false);
+			LightController::set(FSIID::MBI_IRS_CONTROL_R_ALIGN_LIGHT, false);
 		}
 
 		//IRS L ON DC
 		if (irs_l.isOnline && irs_l.onDC)
 		{
-			LightController.set(FSIID.MBI_IRS_CONTROL_L_ON_DC_LIGHT, true);
+			LightController::set(FSIID::MBI_IRS_CONTROL_L_ON_DC_LIGHT, true);
 		}
 		else
 		{
-			LightController.set(FSIID.MBI_IRS_CONTROL_L_ON_DC_LIGHT, false);
+			LightController::set(FSIID::MBI_IRS_CONTROL_L_ON_DC_LIGHT, false);
 		}
 
 		//IRS R ON DC
 		if (irs_r.isOnline && irs_r.onDC)
 		{
-			LightController.set(FSIID.MBI_IRS_CONTROL_R_ON_DC_LIGHT, true);
+			LightController::set(FSIID::MBI_IRS_CONTROL_R_ON_DC_LIGHT, true);
 		}
 		else
 		{
-			LightController.set(FSIID.MBI_IRS_CONTROL_R_ON_DC_LIGHT, false);
+			LightController::set(FSIID::MBI_IRS_CONTROL_R_ON_DC_LIGHT, false);
 		}
 
-		LightController.ProcessWrites();
+		LightController::ProcessWrites();
 	}
 
 

@@ -2,10 +2,26 @@
 
 namespace fstoolbox
 {
-	Timer::Timer(double _timeout, TimeoutCallback func)
+	Timer::Timer(double _timeout, TimeoutStaticCallback func)
+	{
+		timeout = _timeout;
+		callback = nullptr;
+		static_callback = func;
+		foreign_instance = nullptr;
+		enabled = false;
+
+		is_static_callback = true;
+	}
+
+	Timer::Timer(double _timeout, TimeoutCallback func, void * instance)
 	{
 		timeout = _timeout;
 		callback = func;
+		static_callback = nullptr;
+		foreign_instance = instance;
+		enabled = false;
+
+		is_static_callback = false;
 	}
 
 
@@ -21,7 +37,13 @@ namespace fstoolbox
 		if (current_time >= timeout)
 		{
 			Reset();
-			callback();
+
+			if (is_static_callback) {
+				static_callback();
+			} else {
+				callback(foreign_instance);
+			}
+			
 		}
 	}
 

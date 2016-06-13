@@ -36,7 +36,7 @@ namespace fssystems
 		FSIcm::inst->ProcessWrites();
 	}
 
-	void fsiOnVarReceive(FSIID id)
+	void PNEUMATICS::fsiOnVarReceive(FSIID id)
 	{
 
 	}
