@@ -4,57 +4,39 @@
 #include "FSToolbox/LightController.h"
 
 
+/*  ### FS737 ELEC 0.1 ###
+SIMPLIFIED SIMULATION OF B737-800 ELECTRICAL SYSTEM
+by Marcel Haupt and Arvid Preuss, 2016
+
+FOLLOWING CONDITIONS ARE SUPPOSED:
+* ALL GENERATORS RTL
+* BATTERY INFINITELY LOADED
+* NO FAILURES
+
+TO-DO (not in prioritized order):
+* Simulate failures upon receive of IOS fails
+* Create FSI variables for varios new busses and uncomment respective code
+* Create reset() method: all values are to be set to their initial state
+* Create failsafe() method: all values are to be set to "online" values regardless of environmental states and switches
+* Detailed comments and more / more precise debug messages
+*/
+
+
 namespace fssystems
 {
 	using fstoolbox::FSIcm;
 	using fsinterface::FSIID;
 	using fstoolbox::LightController;
 
-	/*  ### FS737 ELEC 0.1 ###
-	SIMPLIFIED SIMULATION OF B737-800 ELECTRICAL SYSTEM
-	by Marcel Haupt and Arvid Preuss, 2016
-
-	FOLLOWING CONDITIONS ARE SUPPOSED:
-	* ALL GENERATORS RTL
-	* BATTERY INFINITELY LOADED
-	* NO FAILURES
-
-	TO-DO (not in prioritized order):
-	* Simulate failures upon receive of IOS fails
-	* Create FSI variables for varios new busses and uncomment respective code
-	* Create reset() method: all values are to be set to their initial state
-	* Create failsafe() method: all values are to be set to "online" values regardless of environmental states and switches
-	* Detailed comments and more / more precise debug messages
-	*/
-
 	class AC_Powersource
 	{
 	public:
 		bool isAvailable = false, isOnline = false;
-		bool SwitchOn()
-		{
-			if (isAvailable)
-			{
-				isOnline = true;
-				return true;
-			}
-			else return false;
-		}
 
-		void SwitchOff()
-		{
-			isOnline = false;
-		}
-		void Available()
-		{
-			isAvailable = true;
-		}
-
-		void Unavailable()
-		{
-			isAvailable = false;
-			isOnline = false;
-		}
+		bool SwitchOn();
+		void SwitchOff();
+		void Available();
+		void Unavailable();
 	};
 
 	class IDG
@@ -67,14 +49,8 @@ namespace fssystems
 		bool isConnected = true;
 
 		IDG(AC_Powersource & powersource) :
-			assigned_powersource(&powersource)
-		{ }
-
-		void Disconnect()
-		{
-			isConnected = false;
-			assigned_powersource->Unavailable();
-		}
+			assigned_powersource(&powersource) { }
+		void Disconnect();
 	};
 
 
@@ -91,34 +67,9 @@ namespace fssystems
 			powersource(&disconnected), selected_source(&disconnected)
 		{}
 
-		void connect(AC_Powersource & new_powersource)
-		{
-			if (new_powersource.isAvailable)
-			{
-				powersource = &new_powersource;
-				isPowered = powersource->SwitchOn();
-
-				//vergleiche Speicheradresse der Klassen
-				if (powersource != selected_source) sourceOff = true;
-				else sourceOff = false;
-			}
-		}
-		void disconnect(AC_Powersource & disconnect)
-		{
-			powersource = &disconnect;
-			sourceOff = false;
-			isPowered = false;
-		}
-
-		void select(AC_Powersource & new_source)
-		{
-			if (new_source.isAvailable)
-			{
-				if (powersource == selected_source) selected_source->SwitchOff();
-				selected_source = &new_source;
-				connect(new_source);
-			}
-		}
+		void connect(AC_Powersource & new_powersource);
+		void disconnect(AC_Powersource & disconnect);
+		void select(AC_Powersource & new_source);
 	};
 
 

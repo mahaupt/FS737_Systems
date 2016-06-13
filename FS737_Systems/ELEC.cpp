@@ -3,6 +3,71 @@
 
 namespace fssystems
 {
+
+	bool AC_Powersource::SwitchOn()
+	{
+		if (isAvailable)
+		{
+			isOnline = true;
+			return true;
+		}
+		else return false;
+	}
+
+	void AC_Powersource::SwitchOff()
+	{
+		isOnline = false;
+	}
+	void AC_Powersource::Available()
+	{
+		isAvailable = true;
+	}
+
+	void AC_Powersource::Unavailable()
+	{
+		isAvailable = false;
+		isOnline = false;
+	}
+
+
+	void IDG::Disconnect()
+	{
+		isConnected = false;
+		assigned_powersource->Unavailable();
+	}
+
+
+	void AC_BUS::connect(AC_Powersource & new_powersource)
+	{
+		if (new_powersource.isAvailable)
+		{
+			powersource = &new_powersource;
+			isPowered = powersource->SwitchOn();
+
+			//vergleiche Speicheradresse der Klassen
+			if (powersource != selected_source) sourceOff = true;
+			else sourceOff = false;
+		}
+	}
+	void AC_BUS::disconnect(AC_Powersource & disconnect)
+	{
+		powersource = &disconnect;
+		sourceOff = false;
+		isPowered = false;
+	}
+
+	void AC_BUS::select(AC_Powersource & new_source)
+	{
+		if (new_source.isAvailable)
+		{
+			if (powersource == selected_source) selected_source->SwitchOff();
+			selected_source = &new_source;
+			connect(new_source);
+		}
+	}
+
+
+
 	AC_Powersource ELEC::disconnected;
 	ELEC * ELEC::instance = nullptr;
 
