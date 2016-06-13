@@ -32,6 +32,23 @@ namespace fssystems
 	*/
 
 
+    enum IRS_STATUS : int
+    {
+        IRS_OFFLINE =           0b00000001,
+        IRS_ALIGNING =          0b00000010,
+        IRS_ALIGNED =           0b00000100,
+        IRS_FAULT =             0b00001000
+    };
+    enum IRS_POWER_STATUS : int
+    {
+        IRS_POWER_OFFLINE =     0b00000001,
+        IRS_POWER_ON_DC =       0b00000010,
+        IRS_POWER_AC_AVAILABLE= 0b00000100,
+        IRS_POWER_ON_AC =       0b00001000,
+        IRS_POWER_DC_FAULT =    0b00010000
+    };
+
+
 	//IRS Module
 	class Irs_mod
 	{
@@ -45,10 +62,8 @@ namespace fssystems
 		static void dcOffCallback(void * inst);
 
 	public:
-		bool isOnline = false;
-		bool isAligned = false;
-		bool acAvailable = true;
-		bool onDC = false;
+        int irs_status;
+        int irs_power_status;
 
 		Irs_mod();
 		~Irs_mod();

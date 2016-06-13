@@ -12,6 +12,9 @@ namespace fssystems
 		TimerManager::addTimer(*alignmentStartTimer);
 		TimerManager::addTimer(*alignTimer);
 		TimerManager::addTimer(*dcOffTimer);
+
+        irs_status = IRS_STATUS::IRS_OFFLINE;
+        irs_power_status = IRS_POWER_STATUS::IRS_POWER_OFFLINE;
 	}
 
 	Irs_mod::~Irs_mod() {
@@ -22,20 +25,29 @@ namespace fssystems
 
 	void Irs_mod::setPowerStatus(bool value)
 	{
-		if (isOnline != value)
+        //value is diffrernt from current online status
+		if (!(irs_status & IRS_STATUS::IRS_OFFLINE) != value)
 		{
 			//set to online - start alignment
 			if (value)
 			{
 				alignmentStartTimer->Start();
 
-				if (acAvailable)
+                //AC Power available
+				if (irs_power_status & IRS_POWER_STATUS::IRS_POWER_AC_AVAILABLE)
 				{
 					dcOffTimer->Start();
 				}
 
-				isOnline = true;
-				onDC = true;
+                //disable offline status
+                irs_status &= ~IRS_STATUS::IRS_OFFLINE;
+                irs_power_status &= ~IRS_POWER_STATUS::IRS_POWER_OFFLINE;
+
+                //enable DC Power
+                irs_power_status |= IRS_POWER_STATUS::IRS_POWER_ON_DC;
+
+                //no AC yet
+                irs_power_status &= ~IRS_POWER_STATUS::IRS_POWER_ON_AC;
 			}
 			else //set offline
 			{
@@ -43,34 +55,39 @@ namespace fssystems
 				alignTimer->Reset();
 				dcOffTimer->Reset();
 
-				isAligned = false;
-				isOnline = false;
+                irs_status |= IRS_STATUS::IRS_OFFLINE;
+                irs_status &= ~(IRS_STATUS::IRS_ALIGNING | IRS_STATUS::IRS_ALIGNED);
+                irs_power_status |= IRS_POWER_STATUS::IRS_POWER_OFFLINE;
+                irs_power_status &= ~(IRS_POWER_STATUS::IRS_POWER_ON_AC | IRS_POWER_STATUS::IRS_POWER_ON_DC);
 			}
 		}
 	}
 
 	void Irs_mod::setACAvailable(bool value)
 	{
-		if (acAvailable != value)
-		{
-			if (value)
-			{
-				if (isOnline)
-				{
-					dcOffTimer->Start();
-				}
-				acAvailable = true;
-			}
-			else
-			{
-				if (isOnline)
-				{
-					dcOffTimer->Reset();
-				}
-				onDC = true;
-				acAvailable = false;
-			}
-		}
+        if (((irs_power_status & IRS_POWER_STATUS::IRS_POWER_AC_AVAILABLE) != 0) != value)
+        {
+		    if (value)
+		    {
+                if (!(irs_power_status & IRS_POWER_STATUS::IRS_POWER_ON_AC)) 
+                {//irs not on AC yet
+                    if (!(irs_status & IRS_STATUS::IRS_OFFLINE))
+                    { //IRS ONLINE
+				        dcOffTimer->Start();
+			        }
+                }
+                irs_power_status |= IRS_POWER_STATUS::IRS_POWER_AC_AVAILABLE;
+		    }
+		    else
+		    {
+			    if (!(irs_status & IRS_STATUS::IRS_OFFLINE))
+			    { //IRS ONLINE
+				    dcOffTimer->Reset();
+			    }
+                irs_power_status |= IRS_POWER_STATUS::IRS_POWER_ON_DC;
+                irs_power_status &= ~(IRS_POWER_STATUS::IRS_POWER_AC_AVAILABLE | IRS_POWER_STATUS::IRS_POWER_ON_AC);
+		    }
+        }
 	}
 
 	bool Irs_mod::isAligning()
@@ -82,6 +99,7 @@ namespace fssystems
 	void Irs_mod::alignOnCallback(void * inst)
 	{
 		//std::cout << 1 << std::endl;
+        ((Irs_mod*)inst)->irs_status |= IRS_STATUS::IRS_ALIGNING;
 		((Irs_mod*)inst)->alignTimer->Start();
 		IRS::st_sim_irs();
 	}
@@ -89,14 +107,17 @@ namespace fssystems
 	void Irs_mod::alignedCallback(void * inst)
 	{
 		//std::cout << 2 << std::endl;
-		((Irs_mod*)inst)->isAligned = true;
+        ((Irs_mod*)inst)->irs_status &= ~IRS_STATUS::IRS_ALIGNING;
+		((Irs_mod*)inst)->irs_status |= IRS_STATUS::IRS_ALIGNED;
 		IRS::st_sim_irs();
 	}
 
+    //switch on ac
 	void Irs_mod::dcOffCallback(void * inst)
 	{
 		//std::cout << 3 << std::endl;
-		((Irs_mod*)inst)->onDC = false;
+		((Irs_mod*)inst)->irs_power_status |= IRS_POWER_STATUS::IRS_POWER_ON_AC;
+        ((Irs_mod*)inst)->irs_power_status &= ~IRS_POWER_STATUS::IRS_POWER_ON_DC;
 		IRS::st_sim_irs();
 	}
 
@@ -268,8 +289,11 @@ namespace fssystems
 
 	void IRS::sim_irs()
 	{
+        bool irs_l_online = !(irs_l.irs_status & IRS_STATUS::IRS_OFFLINE);
+        bool irs_r_online = !(irs_r.irs_status & IRS_STATUS::IRS_OFFLINE);
+
 		//IRS L ALIGN LIGHT
-		if (irs_l.isOnline && irs_l.isAligning())
+		if (irs_l_online && irs_l.irs_status & IRS_STATUS::IRS_ALIGNING)
 		{
 			LightController::set(FSIID::MBI_IRS_CONTROL_L_ALIGN_LIGHT, true);
 		}
@@ -279,7 +303,7 @@ namespace fssystems
 		}
 
 		//IRS R ALIGN LIGHT
-		if (irs_r.isOnline && irs_r.isAligning())
+		if (irs_r_online && irs_r.irs_status & IRS_STATUS::IRS_ALIGNING)
 		{
 			LightController::set(FSIID::MBI_IRS_CONTROL_R_ALIGN_LIGHT, true);
 		}
@@ -289,7 +313,7 @@ namespace fssystems
 		}
 
 		//IRS L ON DC
-		if (irs_l.isOnline && irs_l.onDC)
+		if (irs_l_online && irs_l.irs_power_status & IRS_POWER_STATUS::IRS_POWER_ON_DC)
 		{
 			LightController::set(FSIID::MBI_IRS_CONTROL_L_ON_DC_LIGHT, true);
 		}
@@ -299,7 +323,7 @@ namespace fssystems
 		}
 
 		//IRS R ON DC
-		if (irs_r.isOnline && irs_r.onDC)
+		if (irs_r_online && irs_r.irs_power_status & IRS_POWER_STATUS::IRS_POWER_ON_DC)
 		{
 			LightController::set(FSIID::MBI_IRS_CONTROL_R_ON_DC_LIGHT, true);
 		}
@@ -307,6 +331,46 @@ namespace fssystems
 		{
 			LightController::set(FSIID::MBI_IRS_CONTROL_R_ON_DC_LIGHT, false);
 		}
+
+        //IRS L DC FAULT
+        if (irs_l_online && irs_l.irs_power_status & IRS_POWER_STATUS::IRS_POWER_DC_FAULT)
+        {
+            LightController::set(FSIID::MBI_IRS_CONTROL_L_DC_FAIL_LIGHT, true);
+        }
+        else
+        {
+            LightController::set(FSIID::MBI_IRS_CONTROL_L_DC_FAIL_LIGHT, false);
+        }
+
+        //IRS R DC FAULT
+        if (irs_r_online && irs_r.irs_power_status & IRS_POWER_STATUS::IRS_POWER_DC_FAULT)
+        {
+            LightController::set(FSIID::MBI_IRS_CONTROL_R_DC_FAIL_LIGHT, true);
+        }
+        else
+        {
+            LightController::set(FSIID::MBI_IRS_CONTROL_R_DC_FAIL_LIGHT, false);
+        }
+
+        //IRS L FAULT
+        if (irs_l_online && irs_l.irs_status & IRS_STATUS::IRS_FAULT)
+        {
+            LightController::set(FSIID::MBI_IRS_CONTROL_L_FAULT_LIGHT, true);
+        }
+        else
+        {
+            LightController::set(FSIID::MBI_IRS_CONTROL_L_FAULT_LIGHT, false);
+        }
+
+        //IRS R FAULT
+        if (irs_r_online && irs_r.irs_status & IRS_STATUS::IRS_FAULT)
+        {
+            LightController::set(FSIID::MBI_IRS_CONTROL_R_FAULT_LIGHT, true);
+        }
+        else
+        {
+            LightController::set(FSIID::MBI_IRS_CONTROL_R_FAULT_LIGHT, false);
+        }
 
 		LightController::ProcessWrites();
 	}
