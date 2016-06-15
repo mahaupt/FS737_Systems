@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "FBC4336D06D8B8CCEC5E3B2C43C6A3E39C7DCBD6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "FBC4336D06D8B8CCEC5E3B2C43C6A3E39C7DCBD6" : 0,
+    "D68A245A5622D46421EAE35144067D309805B54C" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "448B891D-9AEC-4795-A594-009436AA0DDE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "FBC4336D06D8B8CCEC5E3B2C43C6A3E39C7DCBD6" : "FS737_Systems\/",
+    "D68A245A5622D46421EAE35144067D309805B54C" : "FSInterface\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FS737_Systems",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FS737_Systems.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/fs737\/components_cpp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D68A245A5622D46421EAE35144067D309805B54C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:cbacon93\/FS737_Systems.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FBC4336D06D8B8CCEC5E3B2C43C6A3E39C7DCBD6"
+    }
+  ]
+}

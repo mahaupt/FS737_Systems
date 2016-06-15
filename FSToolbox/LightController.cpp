@@ -142,7 +142,7 @@ namespace fstoolbox
 		//no id in lights list
 		if (lightsList.find(id) == lightsList.end())
 		{
-			std::cerr << "Light id:" << id << " not registered! Aborted" << std::endl;
+			//std::cerr << "Light id:" << id << " not registered! Aborted" << std::endl;
 			return;
 		}
 
@@ -161,7 +161,7 @@ namespace fstoolbox
 		//id in lights list
 		if (lightsList.find(light) != lightsList.end())
 		{
-			std::cerr << "Light id:" << light << " already registered! Aborted" << std::endl;
+			//std::cerr << "Light id:" << light << " already registered! Aborted" << std::endl;
 			return;
 		}
 

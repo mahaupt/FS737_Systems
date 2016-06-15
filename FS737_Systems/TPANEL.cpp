@@ -137,7 +137,7 @@ namespace fssystems
 		if (id == FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_ANTI_COLLISION_SWITCH)
 		{
 			FSIcm::inst->set<bool>(FSIID::FSI_LIGHTS_BEACON, FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_ANTI_COLLISION_SWITCH));
-			debug("LOWER_T Beacon " + FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_ANTI_COLLISION_SWITCH));
+            debug("LOWER_T Beacon " + std::to_string((int)FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_ANTI_COLLISION_SWITCH)));
 			FSIcm::inst->ProcessWrites();
 		}
 
@@ -145,7 +145,7 @@ namespace fssystems
 		if (id == FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_POSITION_SWITCH_ON_POS)
 		{
 			FSIcm::inst->set<bool>(FSIID::FSI_LIGHTS_NAV, FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_POSITION_SWITCH_ON_POS));
-			debug("LOWER_T Navlights " + FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_POSITION_SWITCH_ON_POS));
+			debug("LOWER_T Navlights " + std::to_string((int)FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_POSITION_SWITCH_ON_POS)));
 			FSIcm::inst->ProcessWrites();
 		}
 
@@ -153,7 +153,7 @@ namespace fssystems
 		if (id == FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_STROBE_SWITCH_ON_POS)
 		{
 			FSIcm::inst->set<bool>(FSIID::FSI_LIGHTS_STROBE, FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_STROBE_SWITCH_ON_POS));
-			debug("LOWER_T Strobes " + FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_STROBE_SWITCH_ON_POS));
+			debug("LOWER_T Strobes " + std::to_string((int)FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_STROBE_SWITCH_ON_POS)));
 			FSIcm::inst->ProcessWrites();
 		}
 
@@ -161,7 +161,7 @@ namespace fssystems
 		if (id == FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_TAXI_SWITCH_AUTO_BRT_POS)
 		{
 			FSIcm::inst->set<bool>(FSIID::FSI_LIGHTS_TAXI, FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_TAXI_SWITCH_AUTO_BRT_POS));
-			debug("LOWER_T Taxi " + FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_TAXI_SWITCH_AUTO_BRT_POS));
+			debug("LOWER_T Taxi " + std::to_string((int)FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_TAXI_SWITCH_AUTO_BRT_POS)));
 			FSIcm::inst->ProcessWrites();
 		}
 
@@ -169,7 +169,7 @@ namespace fssystems
 		if (id == FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_LANDING_FIXED_LEFT_SWITCH)
 		{
 			FSIcm::inst->set<bool>(FSIID::FSI_LIGHTS_LANDING, FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_LANDING_FIXED_LEFT_SWITCH));
-			debug("LOWER_T Landing " + FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_LANDING_FIXED_LEFT_SWITCH));
+			debug("LOWER_T Landing " + std::to_string((int)FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_LANDING_FIXED_LEFT_SWITCH)));
 			FSIcm::inst->ProcessWrites();
 		}
 
@@ -177,7 +177,7 @@ namespace fssystems
 		if (id == FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_LOGO_SWITCH)
 		{
 			FSIcm::inst->set<bool>(FSIID::FSI_LIGHTS_LOGO, FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_LOGO_SWITCH));
-			debug("LOWER_T Logo " + FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_LOGO_SWITCH));
+			debug("LOWER_T Logo " + std::to_string((int)FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_LOGO_SWITCH)));
 			FSIcm::inst->ProcessWrites();
 		}
 
@@ -185,7 +185,7 @@ namespace fssystems
 		if (id == FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_WING_SWITCH)
 		{
 			FSIcm::inst->set<bool>(FSIID::FSI_LIGHTS_WING, FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_WING_SWITCH));
-			debug("LOWER_T Wing " + FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_WING_SWITCH));
+			debug("LOWER_T Wing " + std::to_string((int)FSIcm::inst->get<bool>(FSIID::MBI_LOWER_T_BOTTOM_LIGHTS_WING_SWITCH)));
 			FSIcm::inst->ProcessWrites();
 		}
 	}

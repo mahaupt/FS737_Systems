@@ -5,7 +5,7 @@ namespace fstoolbox
 	TimerManager * TimerManager::inst = nullptr;
 
 
-	TimerManager::TimerManager(double time = 0.1)
+	TimerManager::TimerManager(double time)
 		:timerThread(TimerThread, this)
 	{
 		timer_interval_s = time;
@@ -39,7 +39,7 @@ namespace fstoolbox
 			duration = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
 			double sleeptime = instance->timer_interval_s - duration.count();
 			if (sleeptime < 0) sleeptime = 0;
-			_sleep(sleeptime * 1000);
+			mySleep(sleeptime * 1000);
 			t1 = std::chrono::high_resolution_clock::now();
 
 			//call timer classes
@@ -75,4 +75,13 @@ namespace fstoolbox
 			inst->timedCallbackList.push_back(callback);
 		}
 	}
+    
+    void TimerManager::mySleep (double ms) {
+        #if defined(_WIN32) || defined(_WIN64)
+        _sleep(ms);
+        #endif
+        #if defined(__APPLE__) || defined(__linux__)
+        usleep(ms*1000);
+        #endif
+    }
 }
