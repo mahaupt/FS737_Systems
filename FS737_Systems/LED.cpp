@@ -173,7 +173,7 @@ namespace fssystems
             }
             
             //extended
-            if (slats_left_outboard > 0) {
+            if (slats_left_outboard > 0 && slats_left_outboard < 100) {
                 LightController::set(FSIID::MBI_LED_SLATS_1_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_2_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_3_EXT_LIGHT, true);
@@ -206,7 +206,7 @@ namespace fssystems
             }
             
             //extended
-            if (slats_right_outboard > 0) {
+            if (slats_right_outboard > 0 && slats_right_outboard < 100) {
                 LightController::set(FSIID::MBI_LED_SLATS_5_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_6_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_7_EXT_LIGHT, true);
