@@ -4,6 +4,10 @@
 #include <chrono>
 //#include <iostream>
 
+#if defined(__APPLE__) || defined(__linux__)
+#include <unistd.h>
+#endif
+
 #include "Timer.h"
 
 /*
@@ -32,7 +36,7 @@ namespace fstoolbox {
 	public:
 		static TimerManager * inst;
 
-		TimerManager(double time);
+		TimerManager(double time = 0.1);
 		~TimerManager();
 
 
@@ -40,6 +44,7 @@ namespace fstoolbox {
 		static void TimerThread(TimerManager * instance);
 		static void addTimer(Timer &timer);
 		static void addTimedCallback(TimedCallback callback);
+        static void mySleep(double ms);
 	};
 }
 

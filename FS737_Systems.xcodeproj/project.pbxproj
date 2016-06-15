@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1FEDFC2E1D11552F001ABFD8 /* AIRCOND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC0B1D11552F001ABFD8 /* AIRCOND.cpp */; };
+		1FEDFC2F1D11552F001ABFD8 /* ANTIICE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC0D1D11552F001ABFD8 /* ANTIICE.cpp */; };
+		1FEDFC301D11552F001ABFD8 /* DOORS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC0F1D11552F001ABFD8 /* DOORS.cpp */; };
+		1FEDFC311D11552F001ABFD8 /* ELEC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC111D11552F001ABFD8 /* ELEC.cpp */; };
+		1FEDFC321D11552F001ABFD8 /* ELT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC131D11552F001ABFD8 /* ELT.cpp */; };
+		1FEDFC331D11552F001ABFD8 /* ENGINEECC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC151D11552F001ABFD8 /* ENGINEECC.cpp */; };
+		1FEDFC341D11552F001ABFD8 /* FRECSTALLTEST.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC171D11552F001ABFD8 /* FRECSTALLTEST.cpp */; };
+		1FEDFC351D11552F001ABFD8 /* FUEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC191D11552F001ABFD8 /* FUEL.cpp */; };
+		1FEDFC361D11552F001ABFD8 /* HEAT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC1B1D11552F001ABFD8 /* HEAT.cpp */; };
+		1FEDFC371D11552F001ABFD8 /* HYDRAULICS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC1D1D11552F001ABFD8 /* HYDRAULICS.cpp */; };
+		1FEDFC381D11552F001ABFD8 /* IRS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC201D11552F001ABFD8 /* IRS.cpp */; };
+		1FEDFC391D11552F001ABFD8 /* LED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC221D11552F001ABFD8 /* LED.cpp */; };
+		1FEDFC3A1D11552F001ABFD8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC241D11552F001ABFD8 /* main.cpp */; };
+		1FEDFC3B1D11552F001ABFD8 /* OXY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC251D11552F001ABFD8 /* OXY.cpp */; };
+		1FEDFC3C1D11552F001ABFD8 /* Panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC271D11552F001ABFD8 /* Panel.cpp */; };
+		1FEDFC3D1D11552F001ABFD8 /* PNEUMATICS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC291D11552F001ABFD8 /* PNEUMATICS.cpp */; };
+		1FEDFC3E1D11552F001ABFD8 /* TPANEL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC2C1D11552F001ABFD8 /* TPANEL.cpp */; };
+		1FEDFC491D115578001ABFD8 /* FSIcm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC401D115578001ABFD8 /* FSIcm.cpp */; };
+		1FEDFC4A1D115578001ABFD8 /* LightController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC421D115578001ABFD8 /* LightController.cpp */; };
+		1FEDFC4B1D115578001ABFD8 /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC451D115578001ABFD8 /* Timer.cpp */; };
+		1FEDFC4C1D115578001ABFD8 /* TimerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC471D115578001ABFD8 /* TimerManager.cpp */; };
+		1FEDFC571D11597B001ABFD8 /* libFSInterface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FEDFC521D1155CA001ABFD8 /* libFSInterface.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		1FEDFC561D115692001ABFD8 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+			);
+		};
+/* End PBXBuildRule section */
+
+/* Begin PBXContainerItemProxy section */
+		1FEDFC511D1155CA001ABFD8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FEDFC4D1D1155CA001ABFD8 /* FSInterface.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F8830AE1D11412600E12DBC;
+			remoteInfo = FSInterface;
+		};
+		1FEDFC531D1155DC001ABFD8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FEDFC4D1D1155CA001ABFD8 /* FSInterface.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F8830AD1D11412600E12DBC;
+			remoteInfo = FSInterface;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1FEDFBFF1D1154E1001ABFD8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1FEDFC011D1154E1001ABFD8 /* FS737_Systems */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FS737_Systems; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FEDFC0B1D11552F001ABFD8 /* AIRCOND.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AIRCOND.cpp; sourceTree = "<group>"; };
+		1FEDFC0C1D11552F001ABFD8 /* AIRCOND.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRCOND.h; sourceTree = "<group>"; };
+		1FEDFC0D1D11552F001ABFD8 /* ANTIICE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ANTIICE.cpp; sourceTree = "<group>"; };
+		1FEDFC0E1D11552F001ABFD8 /* ANTIICE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTIICE.h; sourceTree = "<group>"; };
+		1FEDFC0F1D11552F001ABFD8 /* DOORS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DOORS.cpp; sourceTree = "<group>"; };
+		1FEDFC101D11552F001ABFD8 /* DOORS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOORS.h; sourceTree = "<group>"; };
+		1FEDFC111D11552F001ABFD8 /* ELEC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ELEC.cpp; sourceTree = "<group>"; };
+		1FEDFC121D11552F001ABFD8 /* ELEC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELEC.h; sourceTree = "<group>"; };
+		1FEDFC131D11552F001ABFD8 /* ELT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ELT.cpp; sourceTree = "<group>"; };
+		1FEDFC141D11552F001ABFD8 /* ELT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELT.h; sourceTree = "<group>"; };
+		1FEDFC151D11552F001ABFD8 /* ENGINEECC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ENGINEECC.cpp; sourceTree = "<group>"; };
+		1FEDFC161D11552F001ABFD8 /* ENGINEECC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENGINEECC.h; sourceTree = "<group>"; };
+		1FEDFC171D11552F001ABFD8 /* FRECSTALLTEST.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FRECSTALLTEST.cpp; sourceTree = "<group>"; };
+		1FEDFC181D11552F001ABFD8 /* FRECSTALLTEST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRECSTALLTEST.h; sourceTree = "<group>"; };
+		1FEDFC191D11552F001ABFD8 /* FUEL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FUEL.cpp; sourceTree = "<group>"; };
+		1FEDFC1A1D11552F001ABFD8 /* FUEL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUEL.h; sourceTree = "<group>"; };
+		1FEDFC1B1D11552F001ABFD8 /* HEAT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HEAT.cpp; sourceTree = "<group>"; };
+		1FEDFC1C1D11552F001ABFD8 /* HEAT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HEAT.h; sourceTree = "<group>"; };
+		1FEDFC1D1D11552F001ABFD8 /* HYDRAULICS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HYDRAULICS.cpp; sourceTree = "<group>"; };
+		1FEDFC1E1D11552F001ABFD8 /* HYDRAULICS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYDRAULICS.h; sourceTree = "<group>"; };
+		1FEDFC1F1D11552F001ABFD8 /* icon.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = icon.ico; sourceTree = "<group>"; };
+		1FEDFC201D11552F001ABFD8 /* IRS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IRS.cpp; sourceTree = "<group>"; };
+		1FEDFC211D11552F001ABFD8 /* IRS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRS.h; sourceTree = "<group>"; };
+		1FEDFC221D11552F001ABFD8 /* LED.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LED.cpp; sourceTree = "<group>"; };
+		1FEDFC231D11552F001ABFD8 /* LED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LED.h; sourceTree = "<group>"; };
+		1FEDFC241D11552F001ABFD8 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		1FEDFC251D11552F001ABFD8 /* OXY.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OXY.cpp; sourceTree = "<group>"; };
+		1FEDFC261D11552F001ABFD8 /* OXY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXY.h; sourceTree = "<group>"; };
+		1FEDFC271D11552F001ABFD8 /* Panel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Panel.cpp; sourceTree = "<group>"; };
+		1FEDFC281D11552F001ABFD8 /* Panel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panel.h; sourceTree = "<group>"; };
+		1FEDFC291D11552F001ABFD8 /* PNEUMATICS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PNEUMATICS.cpp; sourceTree = "<group>"; };
+		1FEDFC2A1D11552F001ABFD8 /* PNEUMATICS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNEUMATICS.h; sourceTree = "<group>"; };
+		1FEDFC2B1D11552F001ABFD8 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		1FEDFC2C1D11552F001ABFD8 /* TPANEL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TPANEL.cpp; sourceTree = "<group>"; };
+		1FEDFC2D1D11552F001ABFD8 /* TPANEL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPANEL.h; sourceTree = "<group>"; };
+		1FEDFC401D115578001ABFD8 /* FSIcm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FSIcm.cpp; sourceTree = "<group>"; };
+		1FEDFC411D115578001ABFD8 /* FSIcm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSIcm.h; sourceTree = "<group>"; };
+		1FEDFC421D115578001ABFD8 /* LightController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightController.cpp; sourceTree = "<group>"; };
+		1FEDFC431D115578001ABFD8 /* LightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightController.h; sourceTree = "<group>"; };
+		1FEDFC441D115578001ABFD8 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		1FEDFC451D115578001ABFD8 /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
+		1FEDFC461D115578001ABFD8 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
+		1FEDFC471D115578001ABFD8 /* TimerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimerManager.cpp; sourceTree = "<group>"; };
+		1FEDFC481D115578001ABFD8 /* TimerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerManager.h; sourceTree = "<group>"; };
+		1FEDFC4D1D1155CA001ABFD8 /* FSInterface.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FSInterface.xcodeproj; path = ../FSInterface/FSInterface.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1FEDFBFE1D1154E1001ABFD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FEDFC571D11597B001ABFD8 /* libFSInterface.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1FEDFBF81D1154E1001ABFD8 = {
+			isa = PBXGroup;
+			children = (
+				1FEDFC4D1D1155CA001ABFD8 /* FSInterface.xcodeproj */,
+				1FEDFC3F1D115545001ABFD8 /* FSToolbox */,
+				1FEDFC031D1154E1001ABFD8 /* FS737_Systems */,
+				1FEDFC021D1154E1001ABFD8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1FEDFC021D1154E1001ABFD8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1FEDFC011D1154E1001ABFD8 /* FS737_Systems */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1FEDFC031D1154E1001ABFD8 /* FS737_Systems */ = {
+			isa = PBXGroup;
+			children = (
+				1FEDFC0B1D11552F001ABFD8 /* AIRCOND.cpp */,
+				1FEDFC0C1D11552F001ABFD8 /* AIRCOND.h */,
+				1FEDFC0D1D11552F001ABFD8 /* ANTIICE.cpp */,
+				1FEDFC0E1D11552F001ABFD8 /* ANTIICE.h */,
+				1FEDFC0F1D11552F001ABFD8 /* DOORS.cpp */,
+				1FEDFC101D11552F001ABFD8 /* DOORS.h */,
+				1FEDFC111D11552F001ABFD8 /* ELEC.cpp */,
+				1FEDFC121D11552F001ABFD8 /* ELEC.h */,
+				1FEDFC131D11552F001ABFD8 /* ELT.cpp */,
+				1FEDFC141D11552F001ABFD8 /* ELT.h */,
+				1FEDFC151D11552F001ABFD8 /* ENGINEECC.cpp */,
+				1FEDFC161D11552F001ABFD8 /* ENGINEECC.h */,
+				1FEDFC171D11552F001ABFD8 /* FRECSTALLTEST.cpp */,
+				1FEDFC181D11552F001ABFD8 /* FRECSTALLTEST.h */,
+				1FEDFC191D11552F001ABFD8 /* FUEL.cpp */,
+				1FEDFC1A1D11552F001ABFD8 /* FUEL.h */,
+				1FEDFC1B1D11552F001ABFD8 /* HEAT.cpp */,
+				1FEDFC1C1D11552F001ABFD8 /* HEAT.h */,
+				1FEDFC1D1D11552F001ABFD8 /* HYDRAULICS.cpp */,
+				1FEDFC1E1D11552F001ABFD8 /* HYDRAULICS.h */,
+				1FEDFC1F1D11552F001ABFD8 /* icon.ico */,
+				1FEDFC201D11552F001ABFD8 /* IRS.cpp */,
+				1FEDFC211D11552F001ABFD8 /* IRS.h */,
+				1FEDFC221D11552F001ABFD8 /* LED.cpp */,
+				1FEDFC231D11552F001ABFD8 /* LED.h */,
+				1FEDFC241D11552F001ABFD8 /* main.cpp */,
+				1FEDFC251D11552F001ABFD8 /* OXY.cpp */,
+				1FEDFC261D11552F001ABFD8 /* OXY.h */,
+				1FEDFC271D11552F001ABFD8 /* Panel.cpp */,
+				1FEDFC281D11552F001ABFD8 /* Panel.h */,
+				1FEDFC291D11552F001ABFD8 /* PNEUMATICS.cpp */,
+				1FEDFC2A1D11552F001ABFD8 /* PNEUMATICS.h */,
+				1FEDFC2B1D11552F001ABFD8 /* resource.h */,
+				1FEDFC2C1D11552F001ABFD8 /* TPANEL.cpp */,
+				1FEDFC2D1D11552F001ABFD8 /* TPANEL.h */,
+			);
+			path = FS737_Systems;
+			sourceTree = "<group>";
+		};
+		1FEDFC3F1D115545001ABFD8 /* FSToolbox */ = {
+			isa = PBXGroup;
+			children = (
+				1FEDFC401D115578001ABFD8 /* FSIcm.cpp */,
+				1FEDFC411D115578001ABFD8 /* FSIcm.h */,
+				1FEDFC421D115578001ABFD8 /* LightController.cpp */,
+				1FEDFC431D115578001ABFD8 /* LightController.h */,
+				1FEDFC441D115578001ABFD8 /* ReadMe.txt */,
+				1FEDFC451D115578001ABFD8 /* Timer.cpp */,
+				1FEDFC461D115578001ABFD8 /* Timer.h */,
+				1FEDFC471D115578001ABFD8 /* TimerManager.cpp */,
+				1FEDFC481D115578001ABFD8 /* TimerManager.h */,
+			);
+			path = FSToolbox;
+			sourceTree = "<group>";
+		};
+		1FEDFC4E1D1155CA001ABFD8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1FEDFC521D1155CA001ABFD8 /* libFSInterface.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1FEDFC001D1154E1001ABFD8 /* FS737_Systems */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FEDFC081D1154E1001ABFD8 /* Build configuration list for PBXNativeTarget "FS737_Systems" */;
+			buildPhases = (
+				1FEDFBFD1D1154E1001ABFD8 /* Sources */,
+				1FEDFBFE1D1154E1001ABFD8 /* Frameworks */,
+				1FEDFBFF1D1154E1001ABFD8 /* CopyFiles */,
+			);
+			buildRules = (
+				1FEDFC561D115692001ABFD8 /* PBXBuildRule */,
+			);
+			dependencies = (
+				1FEDFC541D1155DC001ABFD8 /* PBXTargetDependency */,
+			);
+			name = FS737_Systems;
+			productName = FS737_Systems;
+			productReference = 1FEDFC011D1154E1001ABFD8 /* FS737_Systems */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1FEDFBF91D1154E1001ABFD8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Marcel Haupt";
+				TargetAttributes = {
+					1FEDFC001D1154E1001ABFD8 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 1FEDFBFC1D1154E1001ABFD8 /* Build configuration list for PBXProject "FS737_Systems" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1FEDFBF81D1154E1001ABFD8;
+			productRefGroup = 1FEDFC021D1154E1001ABFD8 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1FEDFC4E1D1155CA001ABFD8 /* Products */;
+					ProjectRef = 1FEDFC4D1D1155CA001ABFD8 /* FSInterface.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1FEDFC001D1154E1001ABFD8 /* FS737_Systems */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1FEDFC521D1155CA001ABFD8 /* libFSInterface.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFSInterface.a;
+			remoteRef = 1FEDFC511D1155CA001ABFD8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1FEDFBFD1D1154E1001ABFD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FEDFC361D11552F001ABFD8 /* HEAT.cpp in Sources */,
+				1FEDFC301D11552F001ABFD8 /* DOORS.cpp in Sources */,
+				1FEDFC3B1D11552F001ABFD8 /* OXY.cpp in Sources */,
+				1FEDFC4B1D115578001ABFD8 /* Timer.cpp in Sources */,
+				1FEDFC3C1D11552F001ABFD8 /* Panel.cpp in Sources */,
+				1FEDFC2E1D11552F001ABFD8 /* AIRCOND.cpp in Sources */,
+				1FEDFC311D11552F001ABFD8 /* ELEC.cpp in Sources */,
+				1FEDFC4A1D115578001ABFD8 /* LightController.cpp in Sources */,
+				1FEDFC341D11552F001ABFD8 /* FRECSTALLTEST.cpp in Sources */,
+				1FEDFC321D11552F001ABFD8 /* ELT.cpp in Sources */,
+				1FEDFC3D1D11552F001ABFD8 /* PNEUMATICS.cpp in Sources */,
+				1FEDFC351D11552F001ABFD8 /* FUEL.cpp in Sources */,
+				1FEDFC491D115578001ABFD8 /* FSIcm.cpp in Sources */,
+				1FEDFC381D11552F001ABFD8 /* IRS.cpp in Sources */,
+				1FEDFC371D11552F001ABFD8 /* HYDRAULICS.cpp in Sources */,
+				1FEDFC391D11552F001ABFD8 /* LED.cpp in Sources */,
+				1FEDFC3A1D11552F001ABFD8 /* main.cpp in Sources */,
+				1FEDFC3E1D11552F001ABFD8 /* TPANEL.cpp in Sources */,
+				1FEDFC2F1D11552F001ABFD8 /* ANTIICE.cpp in Sources */,
+				1FEDFC331D11552F001ABFD8 /* ENGINEECC.cpp in Sources */,
+				1FEDFC4C1D115578001ABFD8 /* TimerManager.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1FEDFC541D1155DC001ABFD8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FSInterface;
+			targetProxy = 1FEDFC531D1155DC001ABFD8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1FEDFC061D1154E1001ABFD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1FEDFC071D1154E1001ABFD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1FEDFC091D1154E1001ABFD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../FSInterface,
+					./FSToolbox/../,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1FEDFC0A1D1154E1001ABFD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../FSInterface,
+					./FSToolbox/../,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1FEDFBFC1D1154E1001ABFD8 /* Build configuration list for PBXProject "FS737_Systems" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FEDFC061D1154E1001ABFD8 /* Debug */,
+				1FEDFC071D1154E1001ABFD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FEDFC081D1154E1001ABFD8 /* Build configuration list for PBXNativeTarget "FS737_Systems" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FEDFC091D1154E1001ABFD8 /* Debug */,
+				1FEDFC0A1D1154E1001ABFD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1FEDFBF91D1154E1001ABFD8 /* Project object */;
+}

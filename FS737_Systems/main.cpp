@@ -22,7 +22,7 @@
 
 using namespace fssystems;
 
-int main(char * args, int argv) {
+int main(int argsc, char ** argsv) {
 	fstoolbox::FSIcm fsicm("Overheadpanel Systems");
 	//enabling timer manager
 	fstoolbox::TimerManager timerManager(0.1);
