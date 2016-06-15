@@ -27,12 +27,14 @@ namespace fssystems
     {
     private:
         static VOICEREC * instance;
-        Timer test_light_timer;
+        Timer test_light_on_timer;
+        Timer test_light_off_timer;
         
     public:
         VOICEREC();
         static void fsiOnVarReceive(FSIID id);
         static void enableTestLight();
+        static void disableTestLight();
     };
     
 }
