@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1093851D11754700A90FB1 /* VOICEREC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F1093831D11754700A90FB1 /* VOICEREC.cpp */; };
 		1FEDFC2E1D11552F001ABFD8 /* AIRCOND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC0B1D11552F001ABFD8 /* AIRCOND.cpp */; };
 		1FEDFC2F1D11552F001ABFD8 /* ANTIICE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC0D1D11552F001ABFD8 /* ANTIICE.cpp */; };
 		1FEDFC301D11552F001ABFD8 /* DOORS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC0F1D11552F001ABFD8 /* DOORS.cpp */; };
@@ -72,6 +73,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F1093831D11754700A90FB1 /* VOICEREC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VOICEREC.cpp; sourceTree = "<group>"; };
+		1F1093841D11754700A90FB1 /* VOICEREC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOICEREC.h; sourceTree = "<group>"; };
 		1FEDFC011D1154E1001ABFD8 /* FS737_Systems */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FS737_Systems; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FEDFC0B1D11552F001ABFD8 /* AIRCOND.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AIRCOND.cpp; sourceTree = "<group>"; };
 		1FEDFC0C1D11552F001ABFD8 /* AIRCOND.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRCOND.h; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 				1FEDFC2B1D11552F001ABFD8 /* resource.h */,
 				1FEDFC2C1D11552F001ABFD8 /* TPANEL.cpp */,
 				1FEDFC2D1D11552F001ABFD8 /* TPANEL.h */,
+				1F1093831D11754700A90FB1 /* VOICEREC.cpp */,
+				1F1093841D11754700A90FB1 /* VOICEREC.h */,
 			);
 			path = FS737_Systems;
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 				1FEDFC2F1D11552F001ABFD8 /* ANTIICE.cpp in Sources */,
 				1FEDFC331D11552F001ABFD8 /* ENGINEECC.cpp in Sources */,
 				1FEDFC4C1D115578001ABFD8 /* TimerManager.cpp in Sources */,
+				1F1093851D11754700A90FB1 /* VOICEREC.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

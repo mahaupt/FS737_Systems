@@ -19,11 +19,12 @@
 #include "IRS.h"
 #include "HYDRAULICS.h"
 #include "ELEC.h"
+#include "VOICEREC.h"
 
 using namespace fssystems;
 
 int main(int argsc, char ** argsv) {
-	fstoolbox::FSIcm fsicm("Overheadpanel Systems");
+	fstoolbox::FSIcm fsicm("FS737 Systems");
 	//enabling timer manager
 	fstoolbox::TimerManager timerManager(0.1);
 	fstoolbox::LightController lightController;
@@ -44,6 +45,7 @@ int main(int argsc, char ** argsv) {
 	IRS irs;
 	HYDRAULICS hydraulics;
 	ELEC elec;
+    VOICEREC voicerec;
 
 	//enable LightController
 	LightController::enableUpdate();
