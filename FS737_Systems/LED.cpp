@@ -236,6 +236,8 @@ namespace fssystems
             byte right_in = FSIcm::inst->get<byte>(FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_INBOARD_PERCENT);
             byte right_out = FSIcm::inst->get<byte>(FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_OUTBOARD_PERCENT);
             
+            //TODO: Transit leuchtet nur, wenn LE Devices sich bewegen ODER irgendwo in der Mitte (z.B. bei einem Failure) stehen bleiben
+            // Momentan leuchten sie immer, wenn sich etwas bewegt. Ohne failures reicht das auch.
             //slats 1-4
             if (left_out != left_out_last) {
                 LightController::set(FSIID::MBI_LED_SLATS_1_TRANSIT_LIGHT, true);
