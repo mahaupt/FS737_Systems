@@ -10,6 +10,9 @@ namespace fssystems
 		is_debug = true;
 
 		instance = this;
+        
+        //register timed function
+        TimerManager::addTimedCallback(timedFunction);
 
 		//starting FSI Client for IRS
 		FSIcm::inst->RegisterCallback(fsiOnVarReceive);
@@ -131,7 +134,7 @@ namespace fssystems
                 LightController::set(FSIID::MBI_LED_FLAPS_2_FULL_EXT_LIGHT, false);
             }
             LightController::ProcessWrites();
-            debug("LED Left Flap: " + std::to_string(flaps_left_inboard));
+            //debug("LED Left Flap: " + std::to_string(flaps_left_inboard));
         }
         
         //flaps 3 und 4
@@ -147,7 +150,7 @@ namespace fssystems
                 LightController::set(FSIID::MBI_LED_FLAPS_4_FULL_EXT_LIGHT, false);
             }
             LightController::ProcessWrites();
-            debug("LED Right Flap: " + std::to_string(flaps_right_inboard));
+            //debug("LED Right Flap: " + std::to_string(flaps_right_inboard));
         }
         
         //slats 1 - 4
@@ -180,7 +183,7 @@ namespace fssystems
                 LightController::set(FSIID::MBI_LED_SLATS_4_EXT_LIGHT, false);
             }
             LightController::ProcessWrites();
-            debug("LED Left Slat: " + std::to_string(slats_left_outboard));
+            //debug("LED Left Slat: " + std::to_string(slats_left_outboard));
         }
         
         //slats 1 - 4
@@ -213,7 +216,74 @@ namespace fssystems
                 LightController::set(FSIID::MBI_LED_SLATS_8_EXT_LIGHT, false);
             }
             LightController::ProcessWrites();
-            debug("LED Right Slat: " + std::to_string(slats_right_outboard));
+            //debug("LED Right Slat: " + std::to_string(slats_right_outboard));
         }
 	}
+    
+    void LED::timedFunction(double time) {
+        static double add_time = 1;
+        static byte left_out_last=0, left_in_last=0, right_in_last=0, right_out_last=0;
+        
+        //only every one second
+        add_time -= time;
+        if (add_time <= 0) {
+            add_time = 1;
+            
+            byte left_out = FSIcm::inst->get<byte>(FSIID::FSI_LEADING_EDGE_FLAPS_LEFT_OUTBOARD_PERCENT);
+            byte left_in = FSIcm::inst->get<byte>(FSIID::FSI_LEADING_EDGE_FLAPS_LEFT_INBOARD_PERCENT);
+            byte right_in = FSIcm::inst->get<byte>(FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_INBOARD_PERCENT);
+            byte right_out = FSIcm::inst->get<byte>(FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_OUTBOARD_PERCENT);
+            
+            //slats 1-4
+            if (left_out != left_out_last) {
+                LightController::set(FSIID::MBI_LED_SLATS_1_TRANSIT_LIGHT, true);
+                LightController::set(FSIID::MBI_LED_SLATS_2_TRANSIT_LIGHT, true);
+                LightController::set(FSIID::MBI_LED_SLATS_3_TRANSIT_LIGHT, true);
+                LightController::set(FSIID::MBI_LED_SLATS_4_TRANSIT_LIGHT, true);
+            } else {
+                LightController::set(FSIID::MBI_LED_SLATS_1_TRANSIT_LIGHT, false);
+                LightController::set(FSIID::MBI_LED_SLATS_2_TRANSIT_LIGHT, false);
+                LightController::set(FSIID::MBI_LED_SLATS_3_TRANSIT_LIGHT, false);
+                LightController::set(FSIID::MBI_LED_SLATS_4_TRANSIT_LIGHT, false);
+            }
+            
+            //flaps 1-2
+            if (left_in != left_in_last) {
+                LightController::set(FSIID::MBI_LED_FLAPS_1_TRANSIT_LIGHT, true);
+                LightController::set(FSIID::MBI_LED_FLAPS_2_TRANSIT_LIGHT, true);
+            } else {
+                LightController::set(FSIID::MBI_LED_FLAPS_1_TRANSIT_LIGHT, false);
+                LightController::set(FSIID::MBI_LED_FLAPS_2_TRANSIT_LIGHT, false);
+            }
+            
+            //flaps 3-4
+            if (right_in != right_in_last) {
+                LightController::set(FSIID::MBI_LED_FLAPS_3_TRANSIT_LIGHT, true);
+                LightController::set(FSIID::MBI_LED_FLAPS_4_TRANSIT_LIGHT, true);
+            } else {
+                LightController::set(FSIID::MBI_LED_FLAPS_3_TRANSIT_LIGHT, false);
+                LightController::set(FSIID::MBI_LED_FLAPS_4_TRANSIT_LIGHT, false);
+            }
+            
+            //slats 5-8
+            if (right_out != right_out_last) {
+                LightController::set(FSIID::MBI_LED_SLATS_5_TRANSIT_LIGHT, true);
+                LightController::set(FSIID::MBI_LED_SLATS_6_TRANSIT_LIGHT, true);
+                LightController::set(FSIID::MBI_LED_SLATS_7_TRANSIT_LIGHT, true);
+                LightController::set(FSIID::MBI_LED_SLATS_8_TRANSIT_LIGHT, true);
+            } else {
+                LightController::set(FSIID::MBI_LED_SLATS_5_TRANSIT_LIGHT, false);
+                LightController::set(FSIID::MBI_LED_SLATS_6_TRANSIT_LIGHT, false);
+                LightController::set(FSIID::MBI_LED_SLATS_7_TRANSIT_LIGHT, false);
+                LightController::set(FSIID::MBI_LED_SLATS_8_TRANSIT_LIGHT, false);
+            }
+            LightController::ProcessWrites();
+            
+            
+            left_out_last = left_out;
+            left_in_last = left_in;
+            right_in_last = right_in;
+            right_out_last = right_out;
+        }
+    }
 }
