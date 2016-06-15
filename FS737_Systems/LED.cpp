@@ -84,40 +84,42 @@ namespace fssystems
 			{
 				debug("LED Test off");
 			}
+            
+            int led_override = (led_switch) ? 2 : 1;
 
 			//LED Test Lights
-			LightController::set(FSIID::MBI_LED_FLAPS_1_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_FLAPS_1_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_FLAPS_2_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_FLAPS_2_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_FLAPS_3_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_FLAPS_3_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_FLAPS_4_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_FLAPS_4_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_1_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_1_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_1_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_2_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_2_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_2_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_3_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_3_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_3_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_4_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_4_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_4_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_5_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_5_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_5_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_6_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_6_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_6_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_7_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_7_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_7_TRANSIT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_8_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_8_FULL_EXT_LIGHT, led_switch);
-			LightController::set(FSIID::MBI_LED_SLATS_8_TRANSIT_LIGHT, led_switch);
+			LightController::setOverride(FSIID::MBI_LED_FLAPS_1_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_FLAPS_1_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_FLAPS_2_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_FLAPS_2_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_FLAPS_3_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_FLAPS_3_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_FLAPS_4_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_FLAPS_4_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_1_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_1_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_1_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_2_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_2_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_2_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_3_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_3_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_3_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_4_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_4_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_4_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_5_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_5_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_5_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_6_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_6_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_6_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_7_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_7_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_7_TRANSIT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_8_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_8_FULL_EXT_LIGHT, led_override);
+			LightController::setOverride(FSIID::MBI_LED_SLATS_8_TRANSIT_LIGHT, led_override);
 			LightController::ProcessWrites();
 		}
         

@@ -70,6 +70,11 @@ namespace fstoolbox
 
 
 	}
+    
+    
+    void LightControllerLight::setOverride(int status) {
+        light_status = status;
+    }
 
 
 
@@ -142,7 +147,7 @@ namespace fstoolbox
 		//no id in lights list
 		if (lightsList.find(id) == lightsList.end())
 		{
-			//std::cerr << "Light id:" << id << " not registered! Aborted" << std::endl;
+            std::cerr << "Light id:" << std::to_string((int)id) << " not registered! Aborted" << std::endl;
 			return;
 		}
 
@@ -150,6 +155,22 @@ namespace fstoolbox
 		lightsList[id].set(value);
 		lightsList[id].writeStatus(lights_power, lights_test, lights_brightness);
 	}
+    
+    ///<summary>
+    /// This Overrides the Light status to set a light failure or a private light test
+    ///</summary>
+    void LightController::setOverride(FSIID id, int value) {
+        //no id in lights list
+        if (lightsList.find(id) == lightsList.end())
+        {
+            std::cerr << "Light id:" << std::to_string((int)id) << " not registered! Aborted" << std::endl;
+            return;
+        }
+        
+        //set the light value
+        lightsList[id].setOverride(value);
+        lightsList[id].writeStatus(lights_power, lights_test, lights_brightness);
+    }
 
 	///<summary>
 	/// This registeres a light in the LightController.
@@ -161,7 +182,7 @@ namespace fstoolbox
 		//id in lights list
 		if (lightsList.find(light) != lightsList.end())
 		{
-			//std::cerr << "Light id:" << light << " already registered! Aborted" << std::endl;
+            std::cerr << "Light id:" << std::to_string((int)light) << " already registered! Aborted" << std::endl;
 			return;
 		}
 

@@ -30,9 +30,11 @@ namespace fstoolbox
 		LightControllerLight() {}
 		LightControllerLight(FSIID _light, FSIID _dimmable_light);
 		LightControllerLight(FSIID _light);
+        
 		void set(bool value);
 		bool get(bool main_light_power, bool lights_test);
 		void writeStatus(bool main_lights_power, bool lights_test, bool light_brightness);
+        void setOverride(int status); //see light_status
 	};
 
 
@@ -57,6 +59,7 @@ namespace fstoolbox
 
 		static void fsiOnVarReceive(FSIID id);
 		static void set(FSIID id, bool value);
+        static void setOverride(FSIID id, int value);
 		static void registerLight(FSIID light, FSIID dimmed_light = (FSIID)0);
 		static void ProcessWrites();
 		static void setLightPower(bool _light_power);

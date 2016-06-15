@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1F1093851D11754700A90FB1 /* VOICEREC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F1093831D11754700A90FB1 /* VOICEREC.cpp */; };
+		1FBEF7361D119D4C002C2B06 /* FIRE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEF7341D119D4C002C2B06 /* FIRE.cpp */; };
+		1FBEF7391D11A00A002C2B06 /* MIP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEF7371D11A00A002C2B06 /* MIP.cpp */; };
 		1FEDFC2E1D11552F001ABFD8 /* AIRCOND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC0B1D11552F001ABFD8 /* AIRCOND.cpp */; };
 		1FEDFC2F1D11552F001ABFD8 /* ANTIICE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC0D1D11552F001ABFD8 /* ANTIICE.cpp */; };
 		1FEDFC301D11552F001ABFD8 /* DOORS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC0F1D11552F001ABFD8 /* DOORS.cpp */; };
@@ -75,6 +77,10 @@
 /* Begin PBXFileReference section */
 		1F1093831D11754700A90FB1 /* VOICEREC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VOICEREC.cpp; sourceTree = "<group>"; };
 		1F1093841D11754700A90FB1 /* VOICEREC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOICEREC.h; sourceTree = "<group>"; };
+		1FBEF7341D119D4C002C2B06 /* FIRE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FIRE.cpp; sourceTree = "<group>"; };
+		1FBEF7351D119D4C002C2B06 /* FIRE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIRE.h; sourceTree = "<group>"; };
+		1FBEF7371D11A00A002C2B06 /* MIP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MIP.cpp; sourceTree = "<group>"; };
+		1FBEF7381D11A00A002C2B06 /* MIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIP.h; sourceTree = "<group>"; };
 		1FEDFC011D1154E1001ABFD8 /* FS737_Systems */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FS737_Systems; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FEDFC0B1D11552F001ABFD8 /* AIRCOND.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AIRCOND.cpp; sourceTree = "<group>"; };
 		1FEDFC0C1D11552F001ABFD8 /* AIRCOND.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRCOND.h; sourceTree = "<group>"; };
@@ -193,6 +199,10 @@
 				1FEDFC2D1D11552F001ABFD8 /* TPANEL.h */,
 				1F1093831D11754700A90FB1 /* VOICEREC.cpp */,
 				1F1093841D11754700A90FB1 /* VOICEREC.h */,
+				1FBEF7341D119D4C002C2B06 /* FIRE.cpp */,
+				1FBEF7351D119D4C002C2B06 /* FIRE.h */,
+				1FBEF7371D11A00A002C2B06 /* MIP.cpp */,
+				1FBEF7381D11A00A002C2B06 /* MIP.h */,
 			);
 			path = FS737_Systems;
 			sourceTree = "<group>";
@@ -301,6 +311,7 @@
 				1FEDFC4B1D115578001ABFD8 /* Timer.cpp in Sources */,
 				1FEDFC3C1D11552F001ABFD8 /* Panel.cpp in Sources */,
 				1FEDFC2E1D11552F001ABFD8 /* AIRCOND.cpp in Sources */,
+				1FBEF7391D11A00A002C2B06 /* MIP.cpp in Sources */,
 				1FEDFC311D11552F001ABFD8 /* ELEC.cpp in Sources */,
 				1FEDFC4A1D115578001ABFD8 /* LightController.cpp in Sources */,
 				1FEDFC341D11552F001ABFD8 /* FRECSTALLTEST.cpp in Sources */,
@@ -308,6 +319,7 @@
 				1FEDFC3D1D11552F001ABFD8 /* PNEUMATICS.cpp in Sources */,
 				1FEDFC351D11552F001ABFD8 /* FUEL.cpp in Sources */,
 				1FEDFC491D115578001ABFD8 /* FSIcm.cpp in Sources */,
+				1FBEF7361D119D4C002C2B06 /* FIRE.cpp in Sources */,
 				1FEDFC381D11552F001ABFD8 /* IRS.cpp in Sources */,
 				1FEDFC371D11552F001ABFD8 /* HYDRAULICS.cpp in Sources */,
 				1FEDFC391D11552F001ABFD8 /* LED.cpp in Sources */,

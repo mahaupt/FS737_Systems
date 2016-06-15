@@ -20,6 +20,8 @@
 #include "HYDRAULICS.h"
 #include "ELEC.h"
 #include "VOICEREC.h"
+#include "FIRE.h"
+#include "MIP.h"
 
 using namespace fssystems;
 
@@ -46,6 +48,8 @@ int main(int argsc, char ** argsv) {
 	HYDRAULICS hydraulics;
 	ELEC elec;
     VOICEREC voicerec;
+    FIRE fire;
+    MIP mip;
 
 	//enable LightController
 	LightController::enableUpdate();

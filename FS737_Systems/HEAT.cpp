@@ -62,10 +62,10 @@ namespace fssystems
 			debug("HEAT OVHT TEST On");
 
 			//OVHT tst lights
-			LightController::set(FSIID::MBI_HEAT_WINDOW_LEFT_FWD_OVERHEAT_LIGHT, true);
-			LightController::set(FSIID::MBI_HEAT_WINDOW_LEFT_SIDE_OVERHEAT_LIGHT, true);
-			LightController::set(FSIID::MBI_HEAT_WINDOW_RIGHT_FWD_OVERHEAT_LIGHT, true);
-			LightController::set(FSIID::MBI_HEAT_WINDOW_RIGHT_SIDE_OVERHEAT_LIGHT, true);
+			LightController::setOverride(FSIID::MBI_HEAT_WINDOW_LEFT_FWD_OVERHEAT_LIGHT, 2);
+			LightController::setOverride(FSIID::MBI_HEAT_WINDOW_LEFT_SIDE_OVERHEAT_LIGHT, 2);
+			LightController::setOverride(FSIID::MBI_HEAT_WINDOW_RIGHT_FWD_OVERHEAT_LIGHT, 2);
+			LightController::setOverride(FSIID::MBI_HEAT_WINDOW_RIGHT_SIDE_OVERHEAT_LIGHT, 2);
 			LightController::ProcessWrites();
 		}
 
@@ -74,12 +74,34 @@ namespace fssystems
 		{
 			debug("HEAT OVHT TEST Off");
 
-			LightController::set(FSIID::MBI_HEAT_WINDOW_LEFT_FWD_OVERHEAT_LIGHT, false);
-			LightController::set(FSIID::MBI_HEAT_WINDOW_LEFT_SIDE_OVERHEAT_LIGHT, false);
-			LightController::set(FSIID::MBI_HEAT_WINDOW_RIGHT_FWD_OVERHEAT_LIGHT, false);
-			LightController::set(FSIID::MBI_HEAT_WINDOW_RIGHT_SIDE_OVERHEAT_LIGHT, false);
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_LEFT_FWD_OVERHEAT_LIGHT, 1);
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_LEFT_SIDE_OVERHEAT_LIGHT, 1);
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_RIGHT_FWD_OVERHEAT_LIGHT, 1);
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_RIGHT_SIDE_OVERHEAT_LIGHT, 1);
 			LightController::ProcessWrites();
 		}
+        
+        //PWR TEST SWITCH ON
+        if (id == FSIID::MBI_HEAT_PWR_TEST_SWITCH && FSIcm::inst->get<bool>(FSIID::MBI_HEAT_PWR_TEST_SWITCH) == true) {
+            debug("HEAT PWR TEST On");
+            
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_LEFT_FWD_ON_LIGHT, 2);
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_LEFT_SIDE_ON_LIGHT, 2);
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_RIGHT_FWD_ON_LIGHT, 2);
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_RIGHT_SIDE_ON_LIGHT, 2);
+            LightController::ProcessWrites();
+        }
+        
+        //PWR TEST SWITCH OFF
+        if (id == FSIID::MBI_HEAT_PWR_TEST_SWITCH && FSIcm::inst->get<bool>(FSIID::MBI_HEAT_PWR_TEST_SWITCH) == false) {
+            debug("HEAT PWR TEST Off");
+            
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_LEFT_FWD_ON_LIGHT, 1);
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_LEFT_SIDE_ON_LIGHT, 1);
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_RIGHT_FWD_ON_LIGHT, 1);
+            LightController::setOverride(FSIID::MBI_HEAT_WINDOW_RIGHT_SIDE_ON_LIGHT, 1);
+            LightController::ProcessWrites();
+        }
 
 		//WND LEFT FWD
 		if (id == FSIID::MBI_HEAT_WINDOW_LEFT_FWD_SWITCH)
