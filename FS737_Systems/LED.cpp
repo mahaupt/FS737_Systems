@@ -130,6 +130,7 @@ namespace fssystems
                 LightController::set(FSIID::MBI_LED_FLAPS_1_FULL_EXT_LIGHT, false);
                 LightController::set(FSIID::MBI_LED_FLAPS_2_FULL_EXT_LIGHT, false);
             }
+            LightController::ProcessWrites();
             debug("LED Left Flap: " + std::to_string(flaps_left_inboard));
         }
         
@@ -145,6 +146,7 @@ namespace fssystems
                 LightController::set(FSIID::MBI_LED_FLAPS_3_FULL_EXT_LIGHT, false);
                 LightController::set(FSIID::MBI_LED_FLAPS_4_FULL_EXT_LIGHT, false);
             }
+            LightController::ProcessWrites();
             debug("LED Right Flap: " + std::to_string(flaps_right_inboard));
         }
         
@@ -166,7 +168,7 @@ namespace fssystems
             }
             
             //extended
-            if (slats_left_outboard < 0) {
+            if (slats_left_outboard > 0) {
                 LightController::set(FSIID::MBI_LED_SLATS_1_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_2_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_3_EXT_LIGHT, true);
@@ -177,6 +179,7 @@ namespace fssystems
                 LightController::set(FSIID::MBI_LED_SLATS_3_EXT_LIGHT, false);
                 LightController::set(FSIID::MBI_LED_SLATS_4_EXT_LIGHT, false);
             }
+            LightController::ProcessWrites();
             debug("LED Left Slat: " + std::to_string(slats_left_outboard));
         }
         
@@ -198,7 +201,7 @@ namespace fssystems
             }
             
             //extended
-            if (slats_right_outboard < 0) {
+            if (slats_right_outboard > 0) {
                 LightController::set(FSIID::MBI_LED_SLATS_5_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_6_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_7_EXT_LIGHT, true);
@@ -209,6 +212,7 @@ namespace fssystems
                 LightController::set(FSIID::MBI_LED_SLATS_7_EXT_LIGHT, false);
                 LightController::set(FSIID::MBI_LED_SLATS_8_EXT_LIGHT, false);
             }
+            LightController::ProcessWrites();
             debug("LED Right Slat: " + std::to_string(slats_right_outboard));
         }
 	}
