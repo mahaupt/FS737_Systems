@@ -66,6 +66,15 @@
     <ClCompile Include="ELEC.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="FIRE.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="MIP.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="VOICEREC.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ELT.h">
@@ -117,6 +126,15 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ELEC.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FIRE.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="MIP.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="VOICEREC.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
