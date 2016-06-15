@@ -2,6 +2,43 @@
 
 namespace fssystems
 {
+    HYD_Pump::HYD_Pump() :
+        timer_pressurize(1.5, callback_pressurize, (void*)this), timer_depressurize(0.5, callback_depressurize, (void*)this)
+    {
+        pump_status = 0; // PUMP Offline
+
+        //register timer
+        TimerManager::addTimer(timer_pressurize);
+        TimerManager::addTimer(timer_depressurize);
+    }
+    void HYD_Pump::callback_pressurize(void * inst) {
+        ((HYD_Pump*)inst)->pump_status |= HYD_PUMP_STATUS::HYD_PUMP_PRESSURE;
+        HYDRAULICS::sim_hydraulics_st();
+    }
+    void HYD_Pump::callback_depressurize(void * inst) {
+        ((HYD_Pump*)inst)->pump_status &= ~HYD_PUMP_STATUS::HYD_PUMP_PRESSURE;
+        HYDRAULICS::sim_hydraulics_st();
+    }
+    void HYD_Pump::setPower(bool value) {
+        //pump status have to be switched
+        if (value != (pump_status & HYD_PUMP_STATUS::HYD_PUMP_ONLINE)) 
+        {
+            if (value) {
+                //start pump - pressurize
+                pump_status |= HYD_PUMP_STATUS::HYD_PUMP_ONLINE;
+                timer_pressurize.Start();
+                timer_depressurize.Reset();
+            }
+            else 
+            {
+                pump_status &= ~HYD_PUMP_STATUS::HYD_PUMP_ONLINE;
+                timer_pressurize.Reset();
+                timer_depressurize.Start();
+            }
+        }
+    }
+
+
 	HYDRAULICS * HYDRAULICS::instance = nullptr;
 
 	HYDRAULICS::HYDRAULICS()
@@ -47,65 +84,69 @@ namespace fssystems
 	void HYDRAULICS::onVarReceive(FSIID & id)
 	{
 		//ELEC 1
-		if (id == FSIID::MBI_HYDRAULICS_ELEC_1_SWITCH)
+		if (id == FSIID::MBI_HYDRAULICS_ELEC_1_SWITCH || id == FSIID::SLI_AC_XFR_BUS_1_PHASE_1_VOLTAGE)
 		{
-			if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ELEC_1_SWITCH)) {
+			if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ELEC_1_SWITCH) && FSIcm::inst->get<float>(FSIID::SLI_AC_XFR_BUS_1_PHASE_1_VOLTAGE) > 50) {
 				debug("HYDRAULICS ELEC 1 On");
+                elec1_hyd.setPower(true);
 			}
 			else {
 				debug("HYDRAULICS ELEC 1 Off");
+                elec1_hyd.setPower(false);
 			}
 			sim_hydraulics();
 		}
 
 		//ELEC 2
-		if (id == FSIID::MBI_HYDRAULICS_ELEC_2_SWITCH)
+		if (id == FSIID::MBI_HYDRAULICS_ELEC_2_SWITCH || id == FSIID::SLI_AC_XFR_BUS_2_PHASE_1_VOLTAGE)
 		{
-			if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ELEC_2_SWITCH)) {
+			if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ELEC_2_SWITCH) && FSIcm::inst->get<float>(FSIID::SLI_AC_XFR_BUS_2_PHASE_1_VOLTAGE) > 50) {
 				debug("HYDRAULICS ELEC 2 On");
+                elec2_hyd.setPower(true);
 			}
 			else {
 				debug("HYDRAULICS ELEC 2 Off");
+                elec2_hyd.setPower(false);
 			}
 			sim_hydraulics();
 		}
 
 
 		//ENG 1
-		if (id == FSIID::MBI_HYDRAULICS_ENG_1_SWITCH)
+		if (id == FSIID::MBI_HYDRAULICS_ENG_1_SWITCH || id == FSIID::SLI_GEN_1_RTL)
 		{
-			if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ENG_1_SWITCH) == true) {
+			if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ENG_1_SWITCH) && FSIcm::inst->get<bool>(FSIID::SLI_GEN_1_RTL)) {
 				debug("HYDRAULICS ENG 1 On");
+                eng1_hyd.setPower(true);
 			}
 			else {
 				debug("HYDRAULICS ENG 1 Off");
+                eng1_hyd.setPower(false);
 			}
 
-			//ELT light
 			sim_hydraulics();
 		}
 
 		//ENG 2
-		if (id == FSIID::MBI_HYDRAULICS_ENG_2_SWITCH)
+		if (id == FSIID::MBI_HYDRAULICS_ENG_2_SWITCH || id == FSIID::SLI_GEN_2_RTL)
 		{
-			if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ENG_2_SWITCH)) {
+			if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ENG_2_SWITCH) && FSIcm::inst->get<bool>(FSIID::SLI_GEN_2_RTL)) {
 				debug("HYDRAULICS ENG 2 On");
+                eng2_hyd.setPower(true);
 			}
 			else {
 				debug("HYDRAULICS ENG 2 Off");
+                eng2_hyd.setPower(false);
 			}
 
-			//ELT light
-			sim_hydraulics();
-		}
-
-
-		//engine ready to load
-		if (id == FSIID::SLI_GEN_1_RTL || id == FSIID::SLI_GEN_2_RTL || id == FSIID::SLI_AC_XFR_BUS_1_PHASE_1_VOLTAGE || id == FSIID::SLI_AC_XFR_BUS_2_PHASE_1_VOLTAGE) {
 			sim_hydraulics();
 		}
 	}
 
+
+    void HYDRAULICS::sim_hydraulics_st() {
+        instance->sim_hydraulics();
+    }
 
 	void HYDRAULICS::sim_hydraulics() {
 		bool hyd_A_eng = false;
@@ -114,7 +155,7 @@ namespace fssystems
 		bool hyd_B_elec = false;
 
 		//gen 1 hyd pump
-		if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ENG_1_SWITCH) && FSIcm::inst->get<bool>(FSIID::SLI_GEN_1_RTL)) {
+		if (eng1_hyd.pump_status & HYD_PUMP_STATUS::HYD_PUMP_PRESSURE) {
 			LightController::set(FSIID::MBI_HYDRAULICS_ENG_1_LOW_PRESSURE_LIGHT, false);
 			hyd_A_eng = true;
 		}
@@ -123,7 +164,7 @@ namespace fssystems
 		}
 
 		//gen 2 hyd pump
-		if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ENG_2_SWITCH) && FSIcm::inst->get<bool>(FSIID::SLI_GEN_2_RTL)) {
+		if (eng2_hyd.pump_status & HYD_PUMP_STATUS::HYD_PUMP_PRESSURE) {
 			LightController::set(FSIID::MBI_HYDRAULICS_ENG_2_LOW_PRESSURE_LIGHT, false);
 			hyd_B_eng = true;
 		}
@@ -132,7 +173,7 @@ namespace fssystems
 		}
 
 		//elec 1 hyd pump
-		if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ELEC_1_SWITCH) && FSIcm::inst->get<float>(FSIID::SLI_AC_XFR_BUS_1_PHASE_1_VOLTAGE) > 50)
+		if (elec1_hyd.pump_status & HYD_PUMP_STATUS::HYD_PUMP_PRESSURE)
 		{
 			hyd_B_elec = true;
 			LightController::set(FSIID::MBI_HYDRAULICS_ELEC_1_LOW_PRESSURE_LIGHT, false);
@@ -143,7 +184,7 @@ namespace fssystems
 		}
 
 		//elec 2 hyd pump
-		if (FSIcm::inst->get<bool>(FSIID::MBI_HYDRAULICS_ELEC_2_SWITCH) && FSIcm::inst->get<float>(FSIID::SLI_AC_XFR_BUS_2_PHASE_1_VOLTAGE) > 50)
+		if (elec2_hyd.pump_status & HYD_PUMP_STATUS::HYD_PUMP_PRESSURE)
 		{
 			hyd_A_elec = true;
 			LightController::set(FSIID::MBI_HYDRAULICS_ELEC_2_LOW_PRESSURE_LIGHT, false);
