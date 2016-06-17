@@ -75,6 +75,9 @@
     <ClCompile Include="VOICEREC.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="SYSTEMS_Gear.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ELT.h">
@@ -135,6 +138,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="VOICEREC.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SYSTEMS_Gear.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

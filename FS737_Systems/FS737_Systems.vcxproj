@@ -180,6 +180,7 @@
     <ClCompile Include="OXY.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PNEUMATICS.cpp" />
+    <ClCompile Include="SYSTEMS_Gear.cpp" />
     <ClCompile Include="TPANEL.cpp" />
     <ClCompile Include="VOICEREC.cpp" />
   </ItemGroup>
@@ -202,6 +203,7 @@
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PNEUMATICS.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SYSTEMS_Gear.h" />
     <ClInclude Include="TPANEL.h" />
     <ClInclude Include="VOICEREC.h" />
   </ItemGroup>

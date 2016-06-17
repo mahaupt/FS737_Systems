@@ -70,8 +70,8 @@ namespace fssystems
         LightController::set(FSIID::MBI_CVR_STATUS_LIGHT, true);
         LightController::ProcessWrites();
         
-        //turn light off after 1 sec
-        instance->test_light_off_timer.Start();
+        //turn light off after 1 sec - actually false
+        //instance->test_light_off_timer.Start();
     }
     
     void VOICEREC::disableTestLight() {

@@ -22,6 +22,7 @@
 #include "VOICEREC.h"
 #include "FIRE.h"
 #include "MIP.h"
+#include "SYSTEMS_Gear.h"
 
 using namespace fssystems;
 
@@ -50,6 +51,7 @@ int main(int argsc, char ** argsv) {
     VOICEREC voicerec;
     FIRE fire;
     MIP mip;
+    SYSTEMS_Gear systems_gear;
 
 	//enable LightController
 	LightController::enableUpdate();

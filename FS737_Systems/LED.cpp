@@ -62,6 +62,10 @@ namespace fssystems
 		LightController::registerLight(FSIID::MBI_LED_SLATS_8_FULL_EXT_LIGHT);
 		LightController::registerLight(FSIID::MBI_LED_SLATS_8_TRANSIT_LIGHT);
 
+        //MIP Lights
+        LightController::registerLight(FSIID::MBI_MIP_CENTER_LE_FLAPS_TRANSIT_LIGHT);
+        LightController::registerLight(FSIID::MBI_MIP_CENTER_LE_FLAPS_EXT_LIGHT);
+
 		FSIcm::inst->set<bool>(FSIID::MBI_LED_LAMPTEST, false);
 
 		FSIcm::inst->ProcessWrites();
@@ -239,11 +243,13 @@ namespace fssystems
             //TODO: Transit leuchtet nur, wenn LE Devices sich bewegen ODER irgendwo in der Mitte (z.B. bei einem Failure) stehen bleiben
             // Momentan leuchten sie immer, wenn sich etwas bewegt. Ohne failures reicht das auch.
             //slats 1-4
+            bool any_flap_trans = false;
             if (left_out != left_out_last) {
                 LightController::set(FSIID::MBI_LED_SLATS_1_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_2_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_3_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_4_TRANSIT_LIGHT, true);
+                any_flap_trans = true;
             } else {
                 LightController::set(FSIID::MBI_LED_SLATS_1_TRANSIT_LIGHT, false);
                 LightController::set(FSIID::MBI_LED_SLATS_2_TRANSIT_LIGHT, false);
@@ -255,6 +261,7 @@ namespace fssystems
             if (left_in != left_in_last) {
                 LightController::set(FSIID::MBI_LED_FLAPS_1_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_FLAPS_2_TRANSIT_LIGHT, true);
+                any_flap_trans = true;
             } else {
                 LightController::set(FSIID::MBI_LED_FLAPS_1_TRANSIT_LIGHT, false);
                 LightController::set(FSIID::MBI_LED_FLAPS_2_TRANSIT_LIGHT, false);
@@ -264,6 +271,7 @@ namespace fssystems
             if (right_in != right_in_last) {
                 LightController::set(FSIID::MBI_LED_FLAPS_3_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_FLAPS_4_TRANSIT_LIGHT, true);
+                any_flap_trans = true;
             } else {
                 LightController::set(FSIID::MBI_LED_FLAPS_3_TRANSIT_LIGHT, false);
                 LightController::set(FSIID::MBI_LED_FLAPS_4_TRANSIT_LIGHT, false);
@@ -275,19 +283,37 @@ namespace fssystems
                 LightController::set(FSIID::MBI_LED_SLATS_6_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_7_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_8_TRANSIT_LIGHT, true);
+                any_flap_trans = true;
             } else {
                 LightController::set(FSIID::MBI_LED_SLATS_5_TRANSIT_LIGHT, false);
                 LightController::set(FSIID::MBI_LED_SLATS_6_TRANSIT_LIGHT, false);
                 LightController::set(FSIID::MBI_LED_SLATS_7_TRANSIT_LIGHT, false);
                 LightController::set(FSIID::MBI_LED_SLATS_8_TRANSIT_LIGHT, false);
             }
-            LightController::ProcessWrites();
+            
             
             
             left_out_last = left_out;
             left_in_last = left_in;
             right_in_last = right_in;
             right_out_last = right_out;
+
+
+            //MIP Lights
+            if (any_flap_trans) {
+                LightController::set(FSIID::MBI_MIP_CENTER_LE_FLAPS_TRANSIT_LIGHT, true);
+                LightController::set(FSIID::MBI_MIP_CENTER_LE_FLAPS_EXT_LIGHT, false);
+            }
+            else {
+                LightController::set(FSIID::MBI_MIP_CENTER_LE_FLAPS_TRANSIT_LIGHT, false);
+                if (left_out > 0 || left_in > 0 || right_in > 0 || right_out > 0) {
+                    LightController::set(FSIID::MBI_MIP_CENTER_LE_FLAPS_EXT_LIGHT, true);
+                } else {
+                    LightController::set(FSIID::MBI_MIP_CENTER_LE_FLAPS_EXT_LIGHT, false);
+                }
+            }
+
+            LightController::ProcessWrites();
         }
     }
 }

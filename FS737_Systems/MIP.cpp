@@ -9,6 +9,9 @@
 #include "MIP.h"
 
 
+//LE FLAP Lights are in the LED Panel
+//Gear Lights and Gear Switch are in SYSTEMS_Gear
+
 namespace fssystems
 {
     MIP * MIP::instance = nullptr;
@@ -25,9 +28,25 @@ namespace fssystems
         
         FSIID wanted_vars[] =
         {
+            //gear
             FSIID::FSI_GEAR_ACTUAL_LEFT,
             FSIID::FSI_GEAR_ACTUAL_NOSE,
-            FSIID::FSI_GEAR_ACTUAL_RIGHT
+            FSIID::FSI_GEAR_ACTUAL_RIGHT,
+
+            //POTIS for Brightness
+            FSIID::MBI_MIP_CM1_LOWER_DU_BRT_POTI,
+            FSIID::MBI_MIP_CM1_INBD_BRT_POTI,
+            FSIID::MBI_MIP_CM1_OUTBD_BRT_POTI,
+            FSIID::MBI_MIP_CM1_UPPER_DU_BRT_POTI,
+            FSIID::MBI_MIP_CM2_INBD_BRT_POTI,
+            FSIID::MBI_MIP_CM2_OUTBD_BRT_POTI,
+
+            //LE FLAPS EXT -> LED
+            //LE FLAPS TRNS -> LED
+
+            //Speedbrake
+            FSIID::FSI_SPOILER_INDICATOR_LEFT,
+            FSIID::FSI_SPOILER_INDICATOR_RIGHT
         };
         FSIcm::inst->DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
         
@@ -63,16 +82,8 @@ namespace fssystems
         
         LightController::registerLight(FSIID::MBI_MIP_CENTER_MFD_ENG_LIGHT);
         LightController::registerLight(FSIID::MBI_MIP_CENTER_MFD_SYS_LIGHT);
-        LightController::registerLight(FSIID::MBI_MIP_CENTER_LE_FLAPS_EXT_LIGHT);
         LightController::registerLight(FSIID::MBI_MIP_CENTER_ANTISKID_INOP_LIGHT);
         LightController::registerLight(FSIID::MBI_MIP_CENTER_AUTOBREAK_DISARM_LIGHT);
-        LightController::registerLight(FSIID::MBI_MIP_CENTER_GEAR_LEFT_LOCKED_LIGHT);
-        LightController::registerLight(FSIID::MBI_MIP_CENTER_GEAR_NOSE_LOCKED_LIGHT);
-        LightController::registerLight(FSIID::MBI_MIP_CENTER_LE_FLAPS_TRANSIT_LIGHT);
-        LightController::registerLight(FSIID::MBI_MIP_CENTER_GEAR_LEFT_TRANSIT_LIGHT);
-        LightController::registerLight(FSIID::MBI_MIP_CENTER_GEAR_NOSE_TRANSIT_LIGHT);
-        LightController::registerLight(FSIID::MBI_MIP_CENTER_GEAR_RIGHT_LOCKED_LIGHT);
-        LightController::registerLight(FSIID::MBI_MIP_CENTER_GEAR_RIGHT_TRANSIT_LIGHT);
         
         FSIcm::inst->set<bool>(FSIID::MBI_MIP_CM1_LAMPTEST, false);
         FSIcm::inst->set<bool>(FSIID::MBI_MIP_CM2_LAMPTEST, false);
@@ -84,56 +95,24 @@ namespace fssystems
     
     void MIP::fsiOnVarReceive(FSIID id)
     {
-        if (id == FSIID::FSI_GEAR_ACTUAL_LEFT) {
-            float gear_left = FSIcm::inst->get<float>(FSIID::FSI_GEAR_ACTUAL_LEFT);
-            
-            //transit
-            if (gear_left > 0 && gear_left < 16383) {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_LEFT_TRANSIT_LIGHT, true);
-            } else {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_LEFT_TRANSIT_LIGHT, false);
-            }
-            
-            //locked
-            if (gear_left == 16383) {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_LEFT_LOCKED_LIGHT, true);
-            } else {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_LEFT_LOCKED_LIGHT, false);
-            }
+
+        //DISPLAY BRIGHTNESS
+        if (id == FSIID::MBI_MIP_CM1_LOWER_DU_BRT_POTI) {
+            unsigned int poti = FSIcm::inst->get<unsigned int>(FSIID::MBI_MIP_CM1_LOWER_DU_BRT_POTI);
+            instance->debug("MIP Lower DU BRT: " + std::to_string(poti));
         }
-        if (id == FSIID::FSI_GEAR_ACTUAL_RIGHT) {
-            float gear_right = FSIcm::inst->get<float>(FSIID::FSI_GEAR_ACTUAL_RIGHT);
-            
-            //transit
-            if (gear_right > 0 && gear_right < 16383) {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_RIGHT_TRANSIT_LIGHT, true);
+
+
+        //SPOILER
+        if (id == FSIID::FSI_SPOILER_INDICATOR_LEFT || id == FSIID::FSI_SPOILER_INDICATOR_RIGHT) {
+            if (FSIcm::inst->get<float>(FSIID::FSI_SPOILER_INDICATOR_LEFT) > 0 || FSIcm::inst->get<float>(FSIID::FSI_SPOILER_INDICATOR_RIGHT) > 0) {
+                LightController::set(FSIID::MBI_MIP_CM1_SPEED_BRAKE_EXTENDED_LIGHT, true);
+                LightController::set(FSIID::MBI_MIP_CM2_SPEEDBRAKES_EXTENDED_LIGHT, true);
             } else {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_RIGHT_TRANSIT_LIGHT, false);
+                LightController::set(FSIID::MBI_MIP_CM1_SPEED_BRAKE_EXTENDED_LIGHT, false);
+                LightController::set(FSIID::MBI_MIP_CM2_SPEEDBRAKES_EXTENDED_LIGHT, false);
             }
-            
-            //locked
-            if (gear_right == 16383) {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_RIGHT_LOCKED_LIGHT, true);
-            } else {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_RIGHT_LOCKED_LIGHT, false);
-            }
-        }
-        if (id == FSIID::FSI_GEAR_ACTUAL_NOSE) {
-            float gear_nose = FSIcm::inst->get<float>(FSIID::FSI_GEAR_ACTUAL_NOSE);
-            
-            //transit
-            if (gear_nose > 0 && gear_nose < 16383) {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_NOSE_TRANSIT_LIGHT, true);
-            } else {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_NOSE_TRANSIT_LIGHT, false);
-            }
-            
-            //locked
-            if (gear_nose == 16383) {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_NOSE_LOCKED_LIGHT, true);
-            } else {
-                LightController::set(FSIID::MBI_MIP_CENTER_GEAR_NOSE_LOCKED_LIGHT, false);
-            }
+            LightController::ProcessWrites();
         }
     }
 }
