@@ -46,7 +46,22 @@ namespace fssystems
 
             //Speedbrake
             FSIID::FSI_SPOILER_INDICATOR_LEFT,
-            FSIID::FSI_SPOILER_INDICATOR_RIGHT
+            FSIID::FSI_SPOILER_INDICATOR_RIGHT,
+
+            //FAILURES
+            FSIID::MALFX_ANTI_SKID_INOP_ACTIVE,
+            FSIID::MALFX_CM1_PFD_BLUE_FAIL_ACTIVE,
+            FSIID::MALFX_CM1_PFD_GREEN_FAIL_ACTIVE,
+            FSIID::MALFX_CM1_PFD_RED_FAIL_ACTIVE,
+            FSIID::MALFX_CM1_ND_BLUE_FAIL_ACTIVE,
+            FSIID::MALFX_CM1_ND_GREEN_FAIL_ACTIVE,
+            FSIID::MALFX_CM1_ND_RED_FAIL_ACTIVE,
+            FSIID::MALFX_CM2_PFD_BLUE_FAIL_ACTIVE,
+            FSIID::MALFX_CM2_PFD_GREEN_FAIL_ACTIVE,
+            FSIID::MALFX_CM2_PFD_RED_FAIL_ACTIVE,
+            FSIID::MALFX_CM2_ND_BLUE_FAIL_ACTIVE,
+            FSIID::MALFX_CM2_ND_GREEN_FAIL_ACTIVE,
+            FSIID::MALFX_CM2_ND_RED_FAIL_ACTIVE
         };
         FSIcm::inst->DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
         
@@ -112,6 +127,155 @@ namespace fssystems
                 LightController::set(FSIID::MBI_MIP_CM1_SPEED_BRAKE_EXTENDED_LIGHT, false);
                 LightController::set(FSIID::MBI_MIP_CM2_SPEEDBRAKES_EXTENDED_LIGHT, false);
             }
+            LightController::ProcessWrites();
+        }
+
+        //FAILURES
+        if (id == FSIID::MALFX_ANTI_SKID_INOP_ACTIVE) {
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_ANTI_SKID_INOP_ACTIVE)) {
+                LightController::set(FSIID::MBI_MIP_CENTER_ANTISKID_INOP_LIGHT, true);
+            } else {
+                LightController::set(FSIID::MBI_MIP_CENTER_ANTISKID_INOP_LIGHT, false);
+            }
+            LightController::ProcessWrites();
+        }
+        //CAPT PFD
+        if (id == FSIID::MALFX_CM1_PFD_RED_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_PFD_CPT);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM1_PFD_RED_FAIL_ACTIVE)) {
+                color_fail |= 0b0001;
+            }
+            else {
+                color_fail &= ~0b0001;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_PFD_CPT, color_fail);
+            LightController::ProcessWrites();
+        }
+        if (id == FSIID::MALFX_CM1_PFD_GREEN_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_PFD_CPT);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM1_PFD_GREEN_FAIL_ACTIVE)) {
+                color_fail |= 0b0010;
+            }
+            else {
+                color_fail &= ~0b0010;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_PFD_CPT, color_fail);
+            LightController::ProcessWrites();
+        }
+        if (id == FSIID::MALFX_CM1_PFD_BLUE_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_PFD_CPT);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM1_PFD_BLUE_FAIL_ACTIVE)) {
+                color_fail |= 0b0100;
+            }
+            else {
+                color_fail &= ~0b0100;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_PFD_CPT, color_fail);
+            LightController::ProcessWrites();
+        }
+
+        //CAPT ND
+        if (id == FSIID::MALFX_CM1_ND_RED_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_ND_CPT);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM1_ND_RED_FAIL_ACTIVE)) {
+                color_fail |= 0b0001;
+            }
+            else {
+                color_fail &= ~0b0001;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_ND_CPT, color_fail);
+            LightController::ProcessWrites();
+        }
+        if (id == FSIID::MALFX_CM1_ND_GREEN_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_ND_CPT);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM1_ND_GREEN_FAIL_ACTIVE)) {
+                color_fail |= 0b0010;
+            }
+            else {
+                color_fail &= ~0b0010;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_ND_CPT, color_fail);
+            LightController::ProcessWrites();
+        }
+        if (id == FSIID::MALFX_CM1_ND_BLUE_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_ND_CPT);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM1_ND_BLUE_FAIL_ACTIVE)) {
+                color_fail |= 0b0100;
+            }
+            else {
+                color_fail &= ~0b0100;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_ND_CPT, color_fail);
+            LightController::ProcessWrites();
+        }
+
+        //CO PFD
+        if (id == FSIID::MALFX_CM2_PFD_RED_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_PFD_FO);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM2_PFD_RED_FAIL_ACTIVE)) {
+                color_fail |= 0b0001;
+            }
+            else {
+                color_fail &= ~0b0001;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_PFD_FO, color_fail);
+            LightController::ProcessWrites();
+        }
+        if (id == FSIID::MALFX_CM2_PFD_GREEN_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_PFD_FO);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM2_PFD_GREEN_FAIL_ACTIVE)) {
+                color_fail |= 0b0010;
+            }
+            else {
+                color_fail &= ~0b0010;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_PFD_FO, color_fail);
+            LightController::ProcessWrites();
+        }
+        if (id == FSIID::MALFX_CM2_PFD_BLUE_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_PFD_FO);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM2_PFD_BLUE_FAIL_ACTIVE)) {
+                color_fail |= 0b0100;
+            }
+            else {
+                color_fail &= ~0b0100;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_PFD_FO, color_fail);
+            LightController::ProcessWrites();
+        }
+
+        //CO ND
+        if (id == FSIID::MALFX_CM2_ND_RED_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_ND_FO);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM2_ND_RED_FAIL_ACTIVE)) {
+                color_fail |= 0b0001;
+            }
+            else {
+                color_fail &= ~0b0001;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_ND_FO, color_fail);
+            LightController::ProcessWrites();
+        }
+        if (id == FSIID::MALFX_CM2_ND_GREEN_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_ND_FO);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM2_ND_GREEN_FAIL_ACTIVE)) {
+                color_fail |= 0b0010;
+            }
+            else {
+                color_fail &= ~0b0010;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_ND_FO, color_fail);
+            LightController::ProcessWrites();
+        }
+        if (id == FSIID::MALFX_CM2_ND_BLUE_FAIL_ACTIVE) {
+            byte color_fail = FSIcm::inst->get<bool>(FSIID::FSI_COLOR_FAIL_ND_FO);
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_CM2_ND_BLUE_FAIL_ACTIVE)) {
+                color_fail |= 0b0100;
+            }
+            else {
+                color_fail &= ~0b0100;
+            }
+            FSIcm::inst->set<byte>(FSIID::FSI_COLOR_FAIL_ND_FO, color_fail);
             LightController::ProcessWrites();
         }
     }

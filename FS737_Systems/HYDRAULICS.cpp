@@ -60,7 +60,10 @@ namespace fssystems
 			FSIID::MBI_HYDRAULICS_ELEC_1_SWITCH,
 			FSIID::MBI_HYDRAULICS_ELEC_2_SWITCH,
 			FSIID::MBI_HYDRAULICS_ENG_1_SWITCH,
-			FSIID::MBI_HYDRAULICS_ENG_2_SWITCH
+			FSIID::MBI_HYDRAULICS_ENG_2_SWITCH,
+
+            FSIID::MALFX_ELEC_HYD_PUMP_A_OVERHEAT_ACTIVE,
+            FSIID::MALFX_ELEC_HYD_PUMP_B_OVERHEAT_ACTIVE
 		};
 		FSIcm::inst->DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
 
@@ -141,6 +144,25 @@ namespace fssystems
 
 			sim_hydraulics();
 		}
+
+        //Failures
+        if (id == FSIID::MALFX_ELEC_HYD_PUMP_A_OVERHEAT_ACTIVE) {
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_ELEC_HYD_PUMP_A_OVERHEAT_ACTIVE)) {
+                LightController::set(FSIID::MBI_HYDRAULICS_ELEC_2_OVERHEAT_LIGHT, true);
+            } else {
+                LightController::set(FSIID::MBI_HYDRAULICS_ELEC_2_OVERHEAT_LIGHT, false);
+            }
+            LightController::ProcessWrites();
+        }
+        if (id == FSIID::MALFX_ELEC_HYD_PUMP_B_OVERHEAT_ACTIVE) {
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_ELEC_HYD_PUMP_B_OVERHEAT_ACTIVE)) {
+                LightController::set(FSIID::MBI_HYDRAULICS_ELEC_1_OVERHEAT_LIGHT, true);
+            }
+            else {
+                LightController::set(FSIID::MBI_HYDRAULICS_ELEC_1_OVERHEAT_LIGHT, false);
+            }
+            LightController::ProcessWrites();
+        }
 	}
 
 

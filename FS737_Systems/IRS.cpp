@@ -146,7 +146,11 @@ namespace fssystems
 			FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_OFF_POS,
 			FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_NAV_POS,
 			FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_ATT_POS,
-			FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_ALIGN_POS
+			FSIID::MBI_IRS_CONTROL_R_MODE_SWITCH_ALIGN_POS,
+
+            //FAILURES
+            FSIID::MALFX_IRS_L_FAIL_ACTIVE,
+            FSIID::MALFX_IRS_R_FAIL_ACTIVE
 		};
 		FSIcm::inst->DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
 
@@ -266,7 +270,7 @@ namespace fssystems
 			sim_irs();
 		}
 
-		//läuft eigentlich über stby bus
+		//AC Powersources
 		if (id == FSIID::SLI_AC_STBY_BUS_PHASE_1_VOLTAGE)
 		{
 			if (FSIcm::inst->get<float>(FSIID::SLI_AC_STBY_BUS_PHASE_1_VOLTAGE) <= 50)
@@ -279,6 +283,28 @@ namespace fssystems
 			}
 			sim_irs();
 		}
+
+        //failures
+        if (id == FSIID::MALFX_IRS_L_FAIL_ACTIVE) {
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_IRS_L_FAIL_ACTIVE)) {
+                irs_l.irs_status |= IRS_STATUS::IRS_FAULT;
+            }
+            else {
+                irs_l.irs_status &= ~IRS_STATUS::IRS_FAULT;
+            }
+            sim_irs();
+        }
+
+        //failures
+        if (id == FSIID::MALFX_IRS_R_FAIL_ACTIVE) {
+            if (FSIcm::inst->get<bool>(FSIID::MALFX_IRS_R_FAIL_ACTIVE)) {
+                irs_r.irs_status |= IRS_STATUS::IRS_FAULT;
+            }
+            else {
+                irs_r.irs_status &= ~IRS_STATUS::IRS_FAULT;
+            }
+            sim_irs();
+        }
 	}
 
 

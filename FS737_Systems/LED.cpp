@@ -23,7 +23,11 @@ namespace fssystems
             FSIID::FSI_LEADING_EDGE_FLAPS_LEFT_INBOARD_PERCENT,
             FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_INBOARD_PERCENT,
             FSIID::FSI_LEADING_EDGE_FLAPS_LEFT_OUTBOARD_PERCENT,
-            FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_OUTBOARD_PERCENT
+            FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_OUTBOARD_PERCENT,
+
+            //failures
+            FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE,
+            FSIID::MALFX_LE_FLAP_TRANSIT_LIGHT_ON_ACTIVE
 		};
 		FSIcm::inst->DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
 
@@ -128,11 +132,11 @@ namespace fssystems
 		}
         
         //flaps 1 und 2
-        if (id == FSIID::FSI_LEADING_EDGE_FLAPS_LEFT_INBOARD_PERCENT) {
+        if (id == FSIID::FSI_LEADING_EDGE_FLAPS_LEFT_INBOARD_PERCENT || id == FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE) {
             byte flaps_left_inboard = FSIcm::inst->get<byte>(FSIID::FSI_LEADING_EDGE_FLAPS_LEFT_INBOARD_PERCENT);
             
             //full extended
-            if (flaps_left_inboard >= 100) {
+            if (flaps_left_inboard >= 100 && !FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE)) {
                 LightController::set(FSIID::MBI_LED_FLAPS_1_FULL_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_FLAPS_2_FULL_EXT_LIGHT, true);
             } else {
@@ -144,11 +148,11 @@ namespace fssystems
         }
         
         //flaps 3 und 4
-        if (id == FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_INBOARD_PERCENT) {
+        if (id == FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_INBOARD_PERCENT || id == FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE) {
             byte flaps_right_inboard = FSIcm::inst->get<byte>(FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_INBOARD_PERCENT);
             
             //full extended
-            if (flaps_right_inboard >= 100) {
+            if (flaps_right_inboard >= 100 && !FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE)) {
                 LightController::set(FSIID::MBI_LED_FLAPS_3_FULL_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_FLAPS_4_FULL_EXT_LIGHT, true);
             } else {
@@ -160,11 +164,11 @@ namespace fssystems
         }
         
         //slats 1 - 4
-        if (id == FSIID::FSI_LEADING_EDGE_FLAPS_LEFT_OUTBOARD_PERCENT) {
+        if (id == FSIID::FSI_LEADING_EDGE_FLAPS_LEFT_OUTBOARD_PERCENT || id == FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE) {
             byte slats_left_outboard = FSIcm::inst->get<byte>(FSIID::FSI_LEADING_EDGE_FLAPS_LEFT_OUTBOARD_PERCENT);
             
             //full extended
-            if (slats_left_outboard >= 100) {
+            if (slats_left_outboard >= 100 && !FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE)) {
                 LightController::set(FSIID::MBI_LED_SLATS_1_FULL_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_2_FULL_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_3_FULL_EXT_LIGHT, true);
@@ -177,7 +181,7 @@ namespace fssystems
             }
             
             //extended
-            if (slats_left_outboard > 0 && slats_left_outboard < 100) {
+            if (slats_left_outboard > 0 && slats_left_outboard < 100 && !FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE)) {
                 LightController::set(FSIID::MBI_LED_SLATS_1_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_2_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_3_EXT_LIGHT, true);
@@ -193,11 +197,11 @@ namespace fssystems
         }
         
         //slats 1 - 4
-        if (id == FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_OUTBOARD_PERCENT) {
+        if (id == FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_OUTBOARD_PERCENT || id == FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE) {
             byte slats_right_outboard = FSIcm::inst->get<byte>(FSIID::FSI_LEADING_EDGE_FLAPS_RIGHT_OUTBOARD_PERCENT);
             
             //full extended
-            if (slats_right_outboard >= 100) {
+            if (slats_right_outboard >= 100 && !FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE)) {
                 LightController::set(FSIID::MBI_LED_SLATS_5_FULL_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_6_FULL_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_7_FULL_EXT_LIGHT, true);
@@ -210,7 +214,7 @@ namespace fssystems
             }
             
             //extended
-            if (slats_right_outboard > 0 && slats_right_outboard < 100) {
+            if (slats_right_outboard > 0 && slats_right_outboard < 100 && !FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE)) {
                 LightController::set(FSIID::MBI_LED_SLATS_5_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_6_EXT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_7_EXT_LIGHT, true);
@@ -244,7 +248,7 @@ namespace fssystems
             // Momentan leuchten sie immer, wenn sich etwas bewegt. Ohne failures reicht das auch.
             //slats 1-4
             bool any_flap_trans = false;
-            if (left_out != left_out_last) {
+            if (left_out != left_out_last || FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_TRANSIT_LIGHT_ON_ACTIVE)) {
                 LightController::set(FSIID::MBI_LED_SLATS_1_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_2_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_3_TRANSIT_LIGHT, true);
@@ -258,7 +262,7 @@ namespace fssystems
             }
             
             //flaps 1-2
-            if (left_in != left_in_last) {
+            if (left_in != left_in_last || FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_TRANSIT_LIGHT_ON_ACTIVE)) {
                 LightController::set(FSIID::MBI_LED_FLAPS_1_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_FLAPS_2_TRANSIT_LIGHT, true);
                 any_flap_trans = true;
@@ -268,7 +272,7 @@ namespace fssystems
             }
             
             //flaps 3-4
-            if (right_in != right_in_last) {
+            if (right_in != right_in_last || FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_TRANSIT_LIGHT_ON_ACTIVE)) {
                 LightController::set(FSIID::MBI_LED_FLAPS_3_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_FLAPS_4_TRANSIT_LIGHT, true);
                 any_flap_trans = true;
@@ -278,7 +282,7 @@ namespace fssystems
             }
             
             //slats 5-8
-            if (right_out != right_out_last) {
+            if (right_out != right_out_last || FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_TRANSIT_LIGHT_ON_ACTIVE)) {
                 LightController::set(FSIID::MBI_LED_SLATS_5_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_6_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_LED_SLATS_7_TRANSIT_LIGHT, true);
@@ -300,13 +304,13 @@ namespace fssystems
 
 
             //MIP Lights
-            if (any_flap_trans) {
+            if (any_flap_trans || FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_TRANSIT_LIGHT_ON_ACTIVE)) {
                 LightController::set(FSIID::MBI_MIP_CENTER_LE_FLAPS_TRANSIT_LIGHT, true);
                 LightController::set(FSIID::MBI_MIP_CENTER_LE_FLAPS_EXT_LIGHT, false);
             }
             else {
                 LightController::set(FSIID::MBI_MIP_CENTER_LE_FLAPS_TRANSIT_LIGHT, false);
-                if (left_out > 0 || left_in > 0 || right_in > 0 || right_out > 0) {
+                if ((left_out > 0 || left_in > 0 || right_in > 0 || right_out > 0) && !FSIcm::inst->get<bool>(FSIID::MALFX_LE_FLAP_EXTENDED_LIGHT_OFF_ACTIVE)) {
                     LightController::set(FSIID::MBI_MIP_CENTER_LE_FLAPS_EXT_LIGHT, true);
                 } else {
                     LightController::set(FSIID::MBI_MIP_CENTER_LE_FLAPS_EXT_LIGHT, false);
