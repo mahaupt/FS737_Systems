@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 
+typedef unsigned char byte;
+
 class Panel
 {
 public:
@@ -15,5 +17,21 @@ protected:
 			std::cout << str << std::endl;
 		}
 	}
+    
+    unsigned int saturate(unsigned int value, unsigned int min, unsigned int max) {
+        if (value > max)
+            value = max;
+        if (value < min)
+            value = min;
+        return value;
+    }
+    
+    byte saturate(byte value, byte min, byte max) {
+        if (value > max)
+            value = max;
+        if (value < min)
+            value = min;
+        return value;
+    }
 };
 

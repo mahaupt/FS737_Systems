@@ -118,13 +118,13 @@ namespace fssystems
 
     void SYSTEMS_APU::fsiOnVarReceive(FSIID id) {
         //FUEL AVAILABLE
-        if (id == FSIID::SLI_FUEL_APU_AVAIL) {
+        /*if (id == FSIID::SLI_FUEL_APU_AVAIL) {
             if (FSIcm::inst->get<bool>(FSIID::SLI_FUEL_APU_AVAIL)) {
                 instance->apu.fuel_available = true;
             } else {
                 instance->apu.fuel_available = false;
             }
-        }
+        }*/
 
         //APU Online and start
         if (id == FSIID::MBI_LOWER_T_BOTTOM_APU_SWITCH_ON_POS || id == FSIID::MBI_LOWER_T_BOTTOM_APU_SWITCH_START_POS) {

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1F1093851D11754700A90FB1 /* VOICEREC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F1093831D11754700A90FB1 /* VOICEREC.cpp */; };
+		1F6E79091D18131900E4459A /* SYSTEMS_APU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E79051D18131900E4459A /* SYSTEMS_APU.cpp */; };
+		1F6E790A1D18131900E4459A /* SYSTEMS_Gear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E79071D18131900E4459A /* SYSTEMS_Gear.cpp */; };
 		1FBEF7361D119D4C002C2B06 /* FIRE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEF7341D119D4C002C2B06 /* FIRE.cpp */; };
 		1FBEF7391D11A00A002C2B06 /* MIP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEF7371D11A00A002C2B06 /* MIP.cpp */; };
 		1FEDFC2E1D11552F001ABFD8 /* AIRCOND.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEDFC0B1D11552F001ABFD8 /* AIRCOND.cpp */; };
@@ -77,6 +79,10 @@
 /* Begin PBXFileReference section */
 		1F1093831D11754700A90FB1 /* VOICEREC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VOICEREC.cpp; sourceTree = "<group>"; };
 		1F1093841D11754700A90FB1 /* VOICEREC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOICEREC.h; sourceTree = "<group>"; };
+		1F6E79051D18131900E4459A /* SYSTEMS_APU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SYSTEMS_APU.cpp; sourceTree = "<group>"; };
+		1F6E79061D18131900E4459A /* SYSTEMS_APU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYSTEMS_APU.h; sourceTree = "<group>"; };
+		1F6E79071D18131900E4459A /* SYSTEMS_Gear.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SYSTEMS_Gear.cpp; sourceTree = "<group>"; };
+		1F6E79081D18131900E4459A /* SYSTEMS_Gear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYSTEMS_Gear.h; sourceTree = "<group>"; };
 		1FBEF7341D119D4C002C2B06 /* FIRE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FIRE.cpp; sourceTree = "<group>"; };
 		1FBEF7351D119D4C002C2B06 /* FIRE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIRE.h; sourceTree = "<group>"; };
 		1FBEF7371D11A00A002C2B06 /* MIP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MIP.cpp; sourceTree = "<group>"; };
@@ -162,6 +168,10 @@
 		1FEDFC031D1154E1001ABFD8 /* FS737_Systems */ = {
 			isa = PBXGroup;
 			children = (
+				1F6E79051D18131900E4459A /* SYSTEMS_APU.cpp */,
+				1F6E79061D18131900E4459A /* SYSTEMS_APU.h */,
+				1F6E79071D18131900E4459A /* SYSTEMS_Gear.cpp */,
+				1F6E79081D18131900E4459A /* SYSTEMS_Gear.h */,
 				1FEDFC0B1D11552F001ABFD8 /* AIRCOND.cpp */,
 				1FEDFC0C1D11552F001ABFD8 /* AIRCOND.h */,
 				1FEDFC0D1D11552F001ABFD8 /* ANTIICE.cpp */,
@@ -315,12 +325,14 @@
 				1FEDFC311D11552F001ABFD8 /* ELEC.cpp in Sources */,
 				1FEDFC4A1D115578001ABFD8 /* LightController.cpp in Sources */,
 				1FEDFC341D11552F001ABFD8 /* FRECSTALLTEST.cpp in Sources */,
+				1F6E79091D18131900E4459A /* SYSTEMS_APU.cpp in Sources */,
 				1FEDFC321D11552F001ABFD8 /* ELT.cpp in Sources */,
 				1FEDFC3D1D11552F001ABFD8 /* PNEUMATICS.cpp in Sources */,
 				1FEDFC351D11552F001ABFD8 /* FUEL.cpp in Sources */,
 				1FEDFC491D115578001ABFD8 /* FSIcm.cpp in Sources */,
 				1FBEF7361D119D4C002C2B06 /* FIRE.cpp in Sources */,
 				1FEDFC381D11552F001ABFD8 /* IRS.cpp in Sources */,
+				1F6E790A1D18131900E4459A /* SYSTEMS_Gear.cpp in Sources */,
 				1FEDFC371D11552F001ABFD8 /* HYDRAULICS.cpp in Sources */,
 				1FEDFC391D11552F001ABFD8 /* LED.cpp in Sources */,
 				1FEDFC3A1D11552F001ABFD8 /* main.cpp in Sources */,
