@@ -39,7 +39,9 @@ namespace fssystems
         //sets cutout if fuel level zero
         //ACHTUNG: Mit Standaloneserver ist der Treibstoff immer null! 
         if (fuel_level <= 0) {
+        //no fuel
             pump_status |= FUEL_PMP_STAT::PUMP_NO_FUEL_CUTOUT;
+            pump_status &= ~FUEL_PMP_STAT::PUMP_PRESSURE;
         } else {
             pump_status &= ~FUEL_PMP_STAT::PUMP_NO_FUEL_CUTOUT;
         }
@@ -90,7 +92,8 @@ namespace fssystems
 
             FSIID::FSI_FUEL_CENTRE_LEVEL_PERCENT,
             FSIID::FSI_FUEL_LEFT_MAIN_LEVEL_PERCENT,
-            FSIID::FSI_FUEL_RIGHT_MAIN_LEVEL_PERCENT
+            FSIID::FSI_FUEL_RIGHT_MAIN_LEVEL_PERCENT,
+            FSIID::FSI_ALTITUDE
 		};
 		FSIcm::inst->DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
 
@@ -317,6 +320,59 @@ namespace fssystems
         else {
             LightController::set(FSIID::MBI_FUEL_RIGHT_FWD_PUMP_LOW_PRESSURE_LIGHT, true);
         }
+
+        //Fuel_AVAILABLE
+        bool left_fuel = false;
+        bool right_fuel = false;
+
+        if ((pmp_ctr_l.pump_status | pmp_l_aft.pump_status | pmp_l_fwd.pump_status) & FUEL_PMP_STAT::PUMP_PRESSURE) {
+            left_fuel = true;
+        }
+        if ((pmp_ctr_r.pump_status | pmp_r_aft.pump_status | pmp_r_fwd.pump_status) & FUEL_PMP_STAT::PUMP_PRESSURE) {
+            right_fuel = true;
+        }
+
+        //crossfeed
+        if (FSIcm::inst->get<bool>(FSIID::MBI_FUEL_CROSSFEED_SWITCH)) {
+            if (left_fuel || right_fuel) {
+                left_fuel = true;
+                right_fuel = true;
+            }
+        }
+
+        //engine suction
+        if (!left_fuel || !right_fuel) {
+            //below 20.000 ft engine suction is enough for fuel supply
+            if (FSIcm::inst->get<float>(FSIID::FSI_ALTITUDE) < 20000) {
+                float ctr_fuel_level = FSIcm::inst->get<float>(FSIID::FSI_FUEL_CENTRE_LEVEL_PERCENT);
+                float left_fuel_level = FSIcm::inst->get<float>(FSIID::FSI_FUEL_LEFT_MAIN_LEVEL_PERCENT);
+                float right_fuel_level = FSIcm::inst->get<float>(FSIID::FSI_FUEL_RIGHT_MAIN_LEVEL_PERCENT);
+
+                if (ctr_fuel_level > 0 || left_fuel_level > 0) {
+                    left_fuel = true;
+                }
+                if (ctr_fuel_level > 0 || right_fuel_level > 0) {
+                    right_fuel = true;
+                }
+            }
+        }
+
+        //write FSI parameter for fuel availability
+        if (left_fuel) {
+            FSIcm::inst->set<bool>(FSIID::SLI_FUEL_ENG1_AVAIL, true);
+            FSIcm::inst->set<bool>(FSIID::SLI_FUEL_APU_AVAIL, true);
+        }
+        else {
+            FSIcm::inst->set<bool>(FSIID::SLI_FUEL_ENG1_AVAIL, false);
+            FSIcm::inst->set<bool>(FSIID::SLI_FUEL_APU_AVAIL, false);
+        }
+        if (right_fuel) {
+            FSIcm::inst->set<bool>(FSIID::SLI_FUEL_ENG2_AVAIL, true);
+        }
+        else {
+            FSIcm::inst->set<bool>(FSIID::SLI_FUEL_ENG2_AVAIL, false);
+        }
+
 
 
         LightController::ProcessWrites();

@@ -131,7 +131,7 @@ namespace fssystems
 		FSIcm::inst->DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
 
 		//GND PWR. APU, ENG GEN testweise alle auf ON
-		FSIcm::inst->set<bool>(FSIID::SLI_APU_GEN_RTL, true);
+		//FSIcm::inst->set<bool>(FSIID::SLI_APU_GEN_RTL, true);
 		FSIcm::inst->set<bool>(FSIID::IOS_GRD_PWR_CONNECTED, true);
 		FSIcm::inst->set<bool>(FSIID::SLI_GEN_1_RTL, true);
 		FSIcm::inst->set<bool>(FSIID::SLI_GEN_2_RTL, true);

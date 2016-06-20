@@ -23,6 +23,7 @@
 #include "FIRE.h"
 #include "MIP.h"
 #include "SYSTEMS_Gear.h"
+#include "SYSTEMS_APU.h"
 
 using namespace fssystems;
 
@@ -52,6 +53,7 @@ int main(int argsc, char ** argsv) {
     FIRE fire;
     MIP mip;
     SYSTEMS_Gear systems_gear;
+    SYSTEMS_APU systems_apu;
 
 	//enable LightController
 	LightController::enableUpdate();

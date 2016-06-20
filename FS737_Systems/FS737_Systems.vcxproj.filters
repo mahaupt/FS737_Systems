@@ -78,6 +78,9 @@
     <ClCompile Include="SYSTEMS_Gear.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="SYSTEMS_APU.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ELT.h">
@@ -141,6 +144,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="SYSTEMS_Gear.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="SYSTEMS_APU.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
