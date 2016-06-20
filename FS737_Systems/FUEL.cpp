@@ -250,7 +250,7 @@ namespace fssystems
 		}
 
         //FUEL LEVEL CTR
-        /*if (id == FSIID::FSI_FUEL_CENTRE_LEVEL_PERCENT) {
+        if (id == FSIID::FSI_FUEL_CENTRE_LEVEL_PERCENT) {
             pmp_ctr_l.setFuelLevel(FSIcm::inst->get<float>(FSIID::FSI_FUEL_CENTRE_LEVEL_PERCENT));
             pmp_ctr_r.setFuelLevel(FSIcm::inst->get<float>(FSIID::FSI_FUEL_CENTRE_LEVEL_PERCENT));
             sim_fuel();
@@ -268,7 +268,7 @@ namespace fssystems
             pmp_r_aft.setFuelLevel(FSIcm::inst->get<float>(FSIID::FSI_FUEL_RIGHT_MAIN_LEVEL_PERCENT));
             pmp_r_fwd.setFuelLevel(FSIcm::inst->get<float>(FSIID::FSI_FUEL_RIGHT_MAIN_LEVEL_PERCENT));
             sim_fuel();
-        }*/
+        }
 	}
 
 

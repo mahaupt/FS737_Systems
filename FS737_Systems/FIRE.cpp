@@ -26,7 +26,9 @@ namespace fssystems
         FSIID wanted_vars[] =
         {
             FSIID::MBI_FIRE_ENGINES_EXT_TEST_1_SWITCH,
-            FSIID::MBI_FIRE_ENGINES_EXT_TEST_2_SWITCH
+            FSIID::MBI_FIRE_ENGINES_EXT_TEST_2_SWITCH,
+            FSIID::MBI_FIRE_TEST_FAULT_INOP_SWITCH,
+            FSIID::MBI_FIRE_TEST_OVHT_FIRE_SWITCH
         };
         FSIcm::inst->DeclareAsWanted(wanted_vars, sizeof(wanted_vars));
         
@@ -62,6 +64,28 @@ namespace fssystems
             LightController::set(FSIID::MBI_FIRE_EXTINGUISHER_TEST_L_LIGHT, test);
             LightController::set(FSIID::MBI_FIRE_EXTINGUISHER_TEST_R_LIGHT, test);
             LightController::set(FSIID::MBI_FIRE_EXTINGUISHER_TEST_APU_LIGHT, test);
+            LightController::ProcessWrites();
+        }
+        
+        if (id == FSIID::MBI_FIRE_TEST_FAULT_INOP_SWITCH) {
+            bool test = FSIcm::inst->get<bool>(FSIID::MBI_FIRE_TEST_FAULT_INOP_SWITCH);
+            instance->debug("FIRE TEST FAULT INOP SWICH " + std::to_string((int)test));
+            
+            LightController::set(FSIID::MBI_FIRE_FAULT_LIGHT, test);
+            LightController::set(FSIID::MBI_FIRE_APU_DET_INOP_LIGHT, test);
+            LightController::ProcessWrites();
+        }
+        
+        if (id == FSIID::MBI_FIRE_TEST_OVHT_FIRE_SWITCH) {
+            bool test = FSIcm::inst->get<bool>(FSIID::MBI_FIRE_TEST_OVHT_FIRE_SWITCH);
+            instance->debug("FIRE TEST OVHT SWICH " + std::to_string((int)test));
+            
+            LightController::set(FSIID::MBI_FIRE_WHEEL_WELL_LIGHT, test);
+            LightController::set(FSIID::MBI_FIRE_ENG_1_OVERHEAT_LIGHT, test);
+            LightController::set(FSIID::MBI_FIRE_ENG_2_OVERHEAT_LIGHT, test);
+            LightController::set(FSIID::MBI_FIRE_UNKNOWN_1_LIGHT, test);
+            LightController::set(FSIID::MBI_FIRE_UNKNOWN_2_LIGHT, test);
+            LightController::set(FSIID::MBI_FIRE_UNKNOWN_3_LIGHT, test);
             LightController::ProcessWrites();
         }
     }
