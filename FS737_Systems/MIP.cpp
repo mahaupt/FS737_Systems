@@ -47,6 +47,15 @@ namespace fssystems
             //Speedbrake
             FSIID::FSI_SPOILER_INDICATOR_LEFT,
             FSIID::FSI_SPOILER_INDICATOR_RIGHT,
+            
+            //POTIS
+            FSIID::MBI_MIP_CM2_INBD_BRT_POTI,
+            FSIID::MBI_MIP_CM2_OUTBD_BRT_POTI,
+            FSIID::MBI_MIP_CM1_LOWER_DU_BRT_POTI,
+            FSIID::MBI_MIP_CM1_INBD_BRT_POTI,
+            FSIID::MBI_MIP_CM1_OUTBD_BRT_POTI,
+            FSIID::MBI_MIP_CM1_UPPER_DU_BRT_POTI,
+            
 
             //FAILURES
             FSIID::MALFX_ANTI_SKID_INOP_ACTIVE,
@@ -112,46 +121,46 @@ namespace fssystems
     {
 
         //DISPLAY BRIGHTNESS
-        if (id == FSIID::MBI_MIP_CM1_LOWER_DU_BRT_POTI) {
+        /*if (id == FSIID::MBI_MIP_CM1_LOWER_DU_BRT_POTI) {
             unsigned int poti = FSIcm::inst->get<unsigned int>(FSIID::MBI_MIP_CM1_LOWER_DU_BRT_POTI);
-            poti /= 1024;
-            poti = 100 - poti;
-            byte brgt = (byte)instance->saturate(poti, 0, 100);
+            poti /= 4;
+            poti = 255 - poti;
+            byte brgt = (byte)instance->saturate(poti, 0, 255);
             FSIcm::inst->set<byte>(FSIID::INT_BRIGHTNESS_LDU, brgt);
         }
         if (id == FSIID::MBI_MIP_CM1_INBD_BRT_POTI) {
             unsigned int poti = FSIcm::inst->get<unsigned int>(FSIID::MBI_MIP_CM1_INBD_BRT_POTI);
-            poti /= 1024;
-            poti = 100 - poti;
-            byte brgt = (byte)instance->saturate(poti, 0, 100);
+            poti /= 4;
+            poti = 255 - poti;
+            byte brgt = (byte)instance->saturate(poti, 0, 255);
             FSIcm::inst->set<byte>(FSIID::INT_BRIGHTNESS_ND_CPT, brgt);
         }
         if (id == FSIID::MBI_MIP_CM1_OUTBD_BRT_POTI) {
             unsigned int poti = FSIcm::inst->get<unsigned int>(FSIID::MBI_MIP_CM1_OUTBD_BRT_POTI);
-            poti /= 1024;
-            poti = 100 - poti;
-            byte brgt = (byte)instance->saturate(poti, 0, 100);
+            poti /= 4;
+            poti = 255 - poti;
+            byte brgt = (byte)instance->saturate(poti, 0, 255);
             FSIcm::inst->set<byte>(FSIID::INT_BRIGHTNESS_PFD_CPT, brgt);
         }
         if (id == FSIID::MBI_MIP_CM1_UPPER_DU_BRT_POTI) {
             unsigned int poti = FSIcm::inst->get<unsigned int>(FSIID::MBI_MIP_CM1_UPPER_DU_BRT_POTI);
-            poti /= 1024;
-            poti = 100 - poti;
-            byte brgt = (byte)instance->saturate(poti, 0, 100);
+            poti /= 4;
+            poti = 255 - poti;
+            byte brgt = (byte)instance->saturate(poti, 0, 255);
             FSIcm::inst->set<byte>(FSIID::INT_BRIGHTNESS_EICAS, brgt);
-        }
+        }*/
         if (id == FSIID::MBI_MIP_CM2_INBD_BRT_POTI) {
             unsigned int poti = FSIcm::inst->get<unsigned int>(FSIID::MBI_MIP_CM2_INBD_BRT_POTI);
-            poti /= 1024;
-            poti = 100 - poti;
-            byte brgt = (byte)instance->saturate(poti, 0, 100);
+            poti /= 4;
+            poti = 255 - poti;
+            byte brgt = (byte)instance->saturate(poti, 0, 255);
             FSIcm::inst->set<byte>(FSIID::INT_BRIGHTNESS_ND_FO, brgt);
         }
         if (id == FSIID::MBI_MIP_CM2_OUTBD_BRT_POTI) {
             unsigned int poti = FSIcm::inst->get<unsigned int>(FSIID::MBI_MIP_CM2_OUTBD_BRT_POTI);
-            poti /= 1024;
-            poti = 100 - poti;
-            byte brgt = (byte)instance->saturate(poti, 0, 100);
+            poti /= 4;
+            poti = 255 - poti;
+            byte brgt = (byte)instance->saturate(poti, 0, 255);
             FSIcm::inst->set<byte>(FSIID::INT_BRIGHTNESS_PFD_FO, brgt);
         }
 
