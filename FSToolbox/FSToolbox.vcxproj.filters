@@ -30,6 +30,9 @@
     <ClInclude Include="FSIcm.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Hardware.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TimerManager.cpp">
@@ -42,6 +45,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="FSIcm.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

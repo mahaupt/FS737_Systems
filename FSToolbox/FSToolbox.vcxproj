@@ -72,6 +72,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>C:\Users\Marcel\Documents\Visual Studio 2015\Projects\FS737_Interface;$(IncludePath)</IncludePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\Arvid Preuss\Documents\Visual Studio 2015\Projects\FS737_Interface;C:\Users\Arvid Preuss\Documents\Visual Studio 2015\Projects\FS737_Interface\FSInterface;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>
@@ -142,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FSIcm.h" />
+    <ClInclude Include="Hardware.h" />
     <ClInclude Include="LightController.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
@@ -149,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="FSIcm.cpp" />
     <ClCompile Include="LightController.cpp" />
+    <ClCompile Include="Hardware.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
   </ItemGroup>
