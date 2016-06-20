@@ -62,6 +62,7 @@ namespace fssystems
             LightController::set(FSIID::MBI_FIRE_EXTINGUISHER_TEST_L_LIGHT, test);
             LightController::set(FSIID::MBI_FIRE_EXTINGUISHER_TEST_R_LIGHT, test);
             LightController::set(FSIID::MBI_FIRE_EXTINGUISHER_TEST_APU_LIGHT, test);
+            LightController::ProcessWrites();
         }
     }
 }
