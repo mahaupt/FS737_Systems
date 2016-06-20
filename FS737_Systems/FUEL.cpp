@@ -25,6 +25,10 @@ namespace fssystems
             } else {
                 //set pump offline
                 pump_status &= ~FUEL_PMP_STAT::PUMP_ONLINE;
+                if (fuel_level <= 0) {
+                    pump_status |=  FUEL_PMP_STAT::PUMP_NO_FUEL_CUTOUT;
+                }
+                
                 pressurize_timer.Reset();
                 depressurize_timer.Start();
             }
@@ -55,6 +59,7 @@ namespace fssystems
             ((FuelPump*)instance)->pump_status |= FUEL_PMP_STAT::PUMP_NO_FUEL_CUTOUT;
         } else {
             ((FuelPump*)instance)->pump_status |= FUEL_PMP_STAT::PUMP_PRESSURE;
+            ((FuelPump*)instance)->pump_status &= ~FUEL_PMP_STAT::PUMP_NO_FUEL_CUTOUT;
         }
         FUEL::sim_fuel_st();
     }
