@@ -121,12 +121,12 @@ namespace fssystems
 
 		FSIcm::inst->ProcessWrites();
         
-        pmp_ctr_l.setFuelLevel(0);
+        /*pmp_ctr_l.setFuelLevel(0);
         pmp_ctr_r.setFuelLevel(0);
         pmp_l_aft.setFuelLevel(50);
         pmp_l_fwd.setFuelLevel(50);
         pmp_r_aft.setFuelLevel(50);
-        pmp_r_fwd.setFuelLevel(50);
+        pmp_r_fwd.setFuelLevel(50);*/
 	}
 
 	void FUEL::fsiOnVarReceive(FSIID id) {
