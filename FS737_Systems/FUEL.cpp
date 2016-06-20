@@ -115,6 +115,13 @@ namespace fssystems
 		FSIcm::inst->set<bool>(FSIID::MBI_FUEL_LAMPTEST, false);
 
 		FSIcm::inst->ProcessWrites();
+        
+        pmp_ctr_l.setFuelLevel(0);
+        pmp_ctr_r.setFuelLevel(0);
+        pmp_l_aft.setFuelLevel(50);
+        pmp_l_fwd.setFuelLevel(50);
+        pmp_r_aft.setFuelLevel(50);
+        pmp_r_fwd.setFuelLevel(50);
 	}
 
 	void FUEL::fsiOnVarReceive(FSIID id) {
@@ -238,7 +245,7 @@ namespace fssystems
 		}
 
         //FUEL LEVEL CTR
-        if (id == FSIID::FSI_FUEL_CENTRE_LEVEL_PERCENT) {
+        /*if (id == FSIID::FSI_FUEL_CENTRE_LEVEL_PERCENT) {
             pmp_ctr_l.setFuelLevel(FSIcm::inst->get<float>(FSIID::FSI_FUEL_CENTRE_LEVEL_PERCENT));
             pmp_ctr_r.setFuelLevel(FSIcm::inst->get<float>(FSIID::FSI_FUEL_CENTRE_LEVEL_PERCENT));
             sim_fuel();
@@ -256,7 +263,7 @@ namespace fssystems
             pmp_r_aft.setFuelLevel(FSIcm::inst->get<float>(FSIID::FSI_FUEL_RIGHT_MAIN_LEVEL_PERCENT));
             pmp_r_fwd.setFuelLevel(FSIcm::inst->get<float>(FSIID::FSI_FUEL_RIGHT_MAIN_LEVEL_PERCENT));
             sim_fuel();
-        }
+        }*/
 	}
 
 

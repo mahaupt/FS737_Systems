@@ -155,6 +155,7 @@ namespace fssystems
             poti = 255 - poti;
             byte brgt = (byte)instance->saturate(poti, 0, 255);
             FSIcm::inst->set<byte>(FSIID::INT_BRIGHTNESS_ND_FO, brgt);
+            LightController::ProcessWrites();
         }
         if (id == FSIID::MBI_MIP_CM2_OUTBD_BRT_POTI) {
             unsigned int poti = FSIcm::inst->get<unsigned int>(FSIID::MBI_MIP_CM2_OUTBD_BRT_POTI);
@@ -162,6 +163,7 @@ namespace fssystems
             poti = 255 - poti;
             byte brgt = (byte)instance->saturate(poti, 0, 255);
             FSIcm::inst->set<byte>(FSIID::INT_BRIGHTNESS_PFD_FO, brgt);
+            LightController::ProcessWrites();
         }
 
 
