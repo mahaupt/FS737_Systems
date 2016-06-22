@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1F1093851D11754700A90FB1 /* VOICEREC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F1093831D11754700A90FB1 /* VOICEREC.cpp */; };
+		1F51375F1D1A887F0036497F /* SimpleComPort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F51375D1D1A887F0036497F /* SimpleComPort.cpp */; };
+		1F5137621D1A8B220036497F /* FIGauge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F5137601D1A8B220036497F /* FIGauge.cpp */; };
 		1F6E79091D18131900E4459A /* SYSTEMS_APU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E79051D18131900E4459A /* SYSTEMS_APU.cpp */; };
 		1F6E790A1D18131900E4459A /* SYSTEMS_Gear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E79071D18131900E4459A /* SYSTEMS_Gear.cpp */; };
 		1FBEF7361D119D4C002C2B06 /* FIRE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEF7341D119D4C002C2B06 /* FIRE.cpp */; };
@@ -79,6 +81,10 @@
 /* Begin PBXFileReference section */
 		1F1093831D11754700A90FB1 /* VOICEREC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VOICEREC.cpp; sourceTree = "<group>"; };
 		1F1093841D11754700A90FB1 /* VOICEREC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VOICEREC.h; sourceTree = "<group>"; };
+		1F51375D1D1A887F0036497F /* SimpleComPort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleComPort.cpp; sourceTree = "<group>"; };
+		1F51375E1D1A887F0036497F /* SimpleComPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleComPort.h; sourceTree = "<group>"; };
+		1F5137601D1A8B220036497F /* FIGauge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FIGauge.cpp; sourceTree = "<group>"; };
+		1F5137611D1A8B220036497F /* FIGauge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIGauge.h; sourceTree = "<group>"; };
 		1F6E79051D18131900E4459A /* SYSTEMS_APU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SYSTEMS_APU.cpp; sourceTree = "<group>"; };
 		1F6E79061D18131900E4459A /* SYSTEMS_APU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYSTEMS_APU.h; sourceTree = "<group>"; };
 		1F6E79071D18131900E4459A /* SYSTEMS_Gear.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SYSTEMS_Gear.cpp; sourceTree = "<group>"; };
@@ -229,6 +235,10 @@
 				1FEDFC461D115578001ABFD8 /* Timer.h */,
 				1FEDFC471D115578001ABFD8 /* TimerManager.cpp */,
 				1FEDFC481D115578001ABFD8 /* TimerManager.h */,
+				1F51375D1D1A887F0036497F /* SimpleComPort.cpp */,
+				1F51375E1D1A887F0036497F /* SimpleComPort.h */,
+				1F5137601D1A8B220036497F /* FIGauge.cpp */,
+				1F5137611D1A8B220036497F /* FIGauge.h */,
 			);
 			path = FSToolbox;
 			sourceTree = "<group>";
@@ -328,6 +338,7 @@
 				1F6E79091D18131900E4459A /* SYSTEMS_APU.cpp in Sources */,
 				1FEDFC321D11552F001ABFD8 /* ELT.cpp in Sources */,
 				1FEDFC3D1D11552F001ABFD8 /* PNEUMATICS.cpp in Sources */,
+				1F51375F1D1A887F0036497F /* SimpleComPort.cpp in Sources */,
 				1FEDFC351D11552F001ABFD8 /* FUEL.cpp in Sources */,
 				1FEDFC491D115578001ABFD8 /* FSIcm.cpp in Sources */,
 				1FBEF7361D119D4C002C2B06 /* FIRE.cpp in Sources */,
@@ -338,6 +349,7 @@
 				1FEDFC3A1D11552F001ABFD8 /* main.cpp in Sources */,
 				1FEDFC3E1D11552F001ABFD8 /* TPANEL.cpp in Sources */,
 				1FEDFC2F1D11552F001ABFD8 /* ANTIICE.cpp in Sources */,
+				1F5137621D1A8B220036497F /* FIGauge.cpp in Sources */,
 				1FEDFC331D11552F001ABFD8 /* ENGINEECC.cpp in Sources */,
 				1FEDFC4C1D115578001ABFD8 /* TimerManager.cpp in Sources */,
 				1F1093851D11754700A90FB1 /* VOICEREC.cpp in Sources */,
