@@ -19,10 +19,10 @@ namespace fstoolbox {
         serialParams.DCBlength = sizeof(serialParams);
         
         GetCommState(serialHandle, &serialParams);
-        serialParams.BaudRate = baudrate;
-        serialParams.ByteSize = byteSize;
-        serialParams.StopBits = stopBits;
-        serialParams.Parity = parity;
+        serialParams.BaudRate = 38400;
+        serialParams.ByteSize = 8;
+        serialParams.StopBits = 0;
+        serialParams.Parity = 0;
         SetCommState(serialHandle, &serialParams);
         
         // Set timeouts

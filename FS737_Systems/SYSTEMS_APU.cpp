@@ -70,7 +70,7 @@ namespace fssystems
                     apu_status |= APU_STATUS::APU_RUNNING;
                 }
             } else if (apu_status & APU_STATUS::APU_RUNNING) {
-                egt_soll = 350;
+                egt_soll = 320;
 
                 if (apu_egt < 360 && !(apu_status & APU_STATUS::APU_READY_TO_LOAD)) {
                     apu_status |= APU_STATUS::APU_READY_TO_LOAD;
@@ -80,7 +80,7 @@ namespace fssystems
         }
 
         //egt to egt_soll
-        apu_egt += (egt_soll - apu_egt) / 10 * (float)time;
+        apu_egt += (egt_soll - apu_egt) / 8 * (float)time;
         //std::cout << apu_egt << std::endl;
     }
 
